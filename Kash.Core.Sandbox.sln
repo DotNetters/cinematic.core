@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Kash.Core.Sandbox.Web", "src\Kash.Core.Sandbox.Web\Kash.Core.Sandbox.Web.xproj", "{06455B7A-EBAF-4F78-B0D7-3760E18F2A0D}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Kash.Core.Sandbox.Domain", "src\Kash.Core.Sandbox.Domain\Kash.Core.Sandbox.Domain.xproj", "{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Kash.Core.Sandbox.Resources", "src\Kash.Core.Sandbox.Resources\Kash.Core.Sandbox.Resources.xproj", "{C99DB743-02AD-43F8-BBC2-040FE2024E65}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Kash.Core.Sandbox.DAL", "src\Kash.Core.Sandbox.DAL\Kash.Core.Sandbox.DAL.xproj", "{FF445D1F-23A3-4D64-AE17-6F082A9C7762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +28,26 @@ Global
 		{06455B7A-EBAF-4F78-B0D7-3760E18F2A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06455B7A-EBAF-4F78-B0D7-3760E18F2A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06455B7A-EBAF-4F78-B0D7-3760E18F2A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99DB743-02AD-43F8-BBC2-040FE2024E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99DB743-02AD-43F8-BBC2-040FE2024E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99DB743-02AD-43F8-BBC2-040FE2024E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99DB743-02AD-43F8-BBC2-040FE2024E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF445D1F-23A3-4D64-AE17-6F082A9C7762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF445D1F-23A3-4D64-AE17-6F082A9C7762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF445D1F-23A3-4D64-AE17-6F082A9C7762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF445D1F-23A3-4D64-AE17-6F082A9C7762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{06455B7A-EBAF-4F78-B0D7-3760E18F2A0D} = {AB85F109-AABC-423D-9539-7E473F1CA3CB}
+		{7AC8B4BA-698D-4FB6-8131-93FAC49B1DD8} = {AB85F109-AABC-423D-9539-7E473F1CA3CB}
+		{C99DB743-02AD-43F8-BBC2-040FE2024E65} = {AB85F109-AABC-423D-9539-7E473F1CA3CB}
+		{FF445D1F-23A3-4D64-AE17-6F082A9C7762} = {AB85F109-AABC-423D-9539-7E473F1CA3CB}
 	EndGlobalSection
 EndGlobal
