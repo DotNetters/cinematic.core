@@ -43,7 +43,10 @@
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
-    "BundlerMinifier.Core": "2.2.306"
+    "BundlerMinifier.Core": "2.2.306",
+    "Cinematic.DAL": "0.0.0-1",
+    "Cinematic.Domain": "0.0.0-1",
+    "Cinematic.Resources": "0.0.0-1"
   },
 
   "tools": {

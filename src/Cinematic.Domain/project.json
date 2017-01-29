@@ -4,9 +4,10 @@
   "version": "0.0.0-1",
 
   "dependencies": {
-    "Kash.Core.Sandbox.Resources": "0.0.0-1",
+    "Cinematic.Resources": "0.0.0-1",
     "NETStandard.Library": "1.6.1",
-    "System.ComponentModel.Annotations": "4.3.0"
+    "System.ComponentModel.Annotations": "4.3.0",
+    "System.Linq.Queryable": "4.3.0"
   },
 
   "frameworks": {

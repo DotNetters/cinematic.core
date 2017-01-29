@@ -1,5 +1,6 @@
 ﻿using Cinematic.Domain;
 using Cinematic.Domain.Contracts;
+using Cinematic.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -15,12 +16,12 @@ namespace Cinematic.DAL
     {
         #region Query expansion
 
-        private class DbIncluder : Cinematic.Extensions.QueryableExtensions.IIncluder
+        private class DbIncluder : QueryableExtensions.IIncluder
         {
             public IQueryable<T> Include<T, TProperty>(IQueryable<T> source, Expression<Func<T, TProperty>> path)
                 where T : class
             {
-                return Microsoft.EntityFrameworkCore.Extensions.Internal.QueryableExtensions.Include(source, path);
+                return EntityFrameworkQueryableExtensions.Include(source, path);
             }
         }
 
@@ -33,7 +34,7 @@ namespace Cinematic.DAL
         /// </summary>
         static CinematicEFDataContext()
         {
-            Cinematic.Extensions.QueryableExtensions.Includer = new DbIncluder();
+            QueryableExtensions.Includer = new DbIncluder();
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Cinematic.DAL
         /// or connection string for the database to which a connection will be made.
         /// </summary>
         /// <param name="nameOrConnectionString">Either the database name or a connection string.</param>
-        public CinematicEFDataContext() : base("Cinematic") { } 
+        public CinematicEFDataContext(DbContextOptions options) : base(options) { } 
 
         #endregion
 
@@ -49,7 +50,7 @@ namespace Cinematic.DAL
 
         void IDataContext.SaveChanges()
         {
-            this.SaveChanges();
+            SaveChanges();
         }
 
         #endregion
@@ -64,6 +65,7 @@ namespace Cinematic.DAL
         /// <returns><see cref="IDataContext.Get"/></returns>
         public T[] Get<T>(object[] ids) where T : class, IBusinessEntity
         {
+
             T[] retVal = new T[ids.Count()];
 
             int i = 0;
@@ -80,28 +82,27 @@ namespace Cinematic.DAL
         /// </summary>
         /// <typeparam name="T"><see cref="Kash.Core.DALContracts.IContext.Add"/></typeparam>
         /// <param name="entity"><see cref="Kash.Core.DALContracts.IContext.Add"/></param>
-        public void Add<T>(T entity) where T : class, IBusinessEntity
+        public new void Add<T>(T entity) where T : class, IBusinessEntity
         {
-            this.Set<T>().Add(entity);
+            Add(entity);
         }
 
         /// <summary>
-        /// <see cref="IDataContext.Remove{T}(System.Guid)"/>
+        /// <see cref="IDataContext.Remove{T}(Guid)"/>
         /// </summary>
-        /// <typeparam name="T"><see cref="IDataContext.Remove{T}(System.Guid)"/></typeparam>
-        /// <param name="id"><see cref="IDataContext.Remove{T}(System.Guid)"/></param>
+        /// <typeparam name="T"><see cref="IDataContext.Remove{T}(Guid)"/></typeparam>
+        /// <param name="id"><see cref="IDataContext.Remove{T}(Guid)"/></param>
         void IDataContext.Remove<T>(object id)
         {
-            var set = this.Set<T>();
-            var entity = set.Find(id);
+            var entity = Find<T>(id);
 
             if (entity != null)
             {
-                set.Remove(entity);
+                Remove(entity);
             }
             else
             {
-                throw new ApplicationException("No entity has been found with the specified identifier");
+                throw new Exception("No entity has been found with the specified identifier");
             }
         }
 
@@ -112,15 +113,14 @@ namespace Cinematic.DAL
         /// <param name="entity"><see cref="Kash.Core.DALContracts.IContext.Remove{T}(T)"/></param>
         void IDataContext.Remove<T>(T entity)
         {
-            var set = this.Set<T>();
-            var foundEntity = set.Find(entity.Id);
+            var foundEntity = Find<T>(entity.Id);
             if (foundEntity != null)
             {
-                set.Remove(foundEntity);
+                Remove(foundEntity);
             }
             else
             {
-                throw new ApplicationException("Entity has not been found");
+                throw new Exception("Entity has not been found");
             }
         }
 
@@ -131,7 +131,7 @@ namespace Cinematic.DAL
         /// <param name="entity">Instancia de la entidad</param>
         void IDataContext.Update<T>(T entity)
         {
-            this.Entry<T>(entity).State = EntityState.Modified;
+            Entry(entity).State = EntityState.Modified;
         }
 
         /// <summary>
@@ -142,46 +142,7 @@ namespace Cinematic.DAL
         /// <returns><see cref="Kash.Core.Contracts.DAL.IDataContext.Find{T}"/></returns>
         public T Find<T>(object id) where T : class, IBusinessEntity
         {
-            return this.Set<T>().Find(id);
-        } 
-
-        #endregion
-
-        #region Operaciones de bajo nivel
-
-        /// <summary>
-        /// <see cref="Kash.Core.DALContracts.IContext.SqlQuery"/>
-        /// </summary>
-        /// <param name="elementType"><see cref="Kash.Core.DALContracts.IContext.SqlQuery"/></param>
-        /// <param name="sql"><see cref="Kash.Core.DALContracts.IContext.SqlQuery"/></param>
-        /// <param name="parameters"><see cref="Kash.Core.DALContracts.IContext.SqlQuery"/></param>
-        /// <returns><see cref="Kash.Core.DALContracts.IContext.SqlQuery"/></returns>
-        public IEnumerable SqlQuery(Type elementType, string sql, params object[] parameters)
-        {
-            return Database.SqlQuery(elementType, sql, parameters);
-        }
-
-        /// <summary>
-        /// <see cref="Kash.Core.Contracts.DAL.IDataContext.SqlQuery{TElement}"/>
-        /// </summary>
-        /// <typeparam name="TElement"><see cref="Kash.Core.Contracts.DAL.IDataContext.SqlQuery{TElement}"/></typeparam>
-        /// <param name="sql"><see cref="Kash.Core.Contracts.DAL.IDataContext.SqlQuery{TElement}"/></param>
-        /// <param name="parameters"><see cref="Kash.Core.Contracts.DAL.IDataContext.SqlQuery{TElement}"/></param>
-        /// <returns><see cref="Kash.Core.Contracts.DAL.IDataContext.SqlQuery{TElement}"/></returns>
-        public IEnumerable<TElement> SqlQuery<TElement>(string sql, params object[] parameters)
-        {
-            return Database.SqlQuery<TElement>(sql, parameters);
-        }
-
-        /// <summary>
-        /// <see cref="Kash.Core.DALContracts.IContext.ExecuteSqlCommand"/>
-        /// </summary>
-        /// <param name="sql"><see cref="Kash.Core.DALContracts.IContext.ExecuteSqlCommand"/></param>
-        /// <param name="parameters"><see cref="Kash.Core.DALContracts.IContext.ExecuteSqlCommand"/></param>
-        /// <returns><see cref="Kash.Core.DALContracts.IContext.ExecuteSqlCommand"/></returns>
-        public int ExecuteSqlCommand(string sql, params object[] parameters)
-        {
-            return Database.ExecuteSqlCommand(sql, parameters);
+            return Find<T>(id);
         } 
 
         #endregion
@@ -194,17 +155,17 @@ namespace Cinematic.DAL
 
         IEnumerable<Seat> IDataContext.Seats
         {
-            get { return this.Seats; }
+            get { return Seats; }
         }
 
         IEnumerable<Ticket> IDataContext.Tickets
         {
-            get { return this.Tickets; }
+            get { return Tickets; }
         }
 
         IEnumerable<Session> IDataContext.Sessions
         {
-            get { return this.Sessions; }
+            get { return Sessions; }
         }
     }
 }
