@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Kash.Core.Sandbox.Web</title>
+    <title>@ViewData["Title"] - @Literals.AppTitle</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -30,11 +30,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">@Literals.Home</a></li>
+                    <li><a asp-area="" asp-controller="TicketSelling" asp-action="Index">@Literals.TicketSelling</a></li>
+                    <li><a asp-area="" asp-controller="Sessions" asp-action="Index">@Literals.Sessions</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                @*@await Html.PartialAsync("_LoginPartial")*@
             </div>
         </div>
     </div>
@@ -42,7 +44,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Kash.Core.Sandbox.Web</p>
+            <p>&copy; @SystemTime.Now().Year - @Literals.AppTitle.</p>
         </footer>
     </div>
 
