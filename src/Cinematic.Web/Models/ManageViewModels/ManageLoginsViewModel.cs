@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace Kash.Core.Sandbox.Web.Models.ManageViewModels
+namespace Cinematic.Web.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {

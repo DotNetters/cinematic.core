@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kash.Core.Sandbox.Web.Models.ManageViewModels
+namespace Cinematic.Web.Models.ManageViewModels
 {
     public class RemoveLoginViewModel
     {

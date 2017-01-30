@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Kash.Core.Sandbox.Web.Data.Migrations
+namespace Cinematic.Web.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

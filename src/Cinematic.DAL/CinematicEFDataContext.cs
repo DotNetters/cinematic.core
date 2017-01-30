@@ -78,10 +78,10 @@ namespace Cinematic.DAL
         }
 
         /// <summary>
-        /// <see cref="Kash.Core.DALContracts.IContext.Add"/>
+        /// <see cref="IDataContext.Add"/>
         /// </summary>
-        /// <typeparam name="T"><see cref="Kash.Core.DALContracts.IContext.Add"/></typeparam>
-        /// <param name="entity"><see cref="Kash.Core.DALContracts.IContext.Add"/></param>
+        /// <typeparam name="T"><see cref="IDataContext.Add"/></typeparam>
+        /// <param name="entity"><see cref="IDataContext.Add"/></param>
         public new void Add<T>(T entity) where T : class, IBusinessEntity
         {
             Add(entity);
@@ -107,10 +107,10 @@ namespace Cinematic.DAL
         }
 
         /// <summary>
-        /// <see cref="Kash.Core.DALContracts.IContext.Remove{T}(T)"/>
+        /// <see cref="IDataContext.Remove{T}(T)"/>
         /// </summary>
-        /// <typeparam name="T"><see cref="Kash.Core.DALContracts.IContext.Remove{T}(T)"/></typeparam>
-        /// <param name="entity"><see cref="Kash.Core.DALContracts.IContext.Remove{T}(T)"/></param>
+        /// <typeparam name="T"><see cref="IDataContext.Remove{T}(T)"/></typeparam>
+        /// <param name="entity"><see cref="IDataContext.Remove{T}(T)"/></param>
         void IDataContext.Remove<T>(T entity)
         {
             var foundEntity = Find<T>(entity.Id);
@@ -135,11 +135,11 @@ namespace Cinematic.DAL
         }
 
         /// <summary>
-        /// <see cref="Kash.Core.Contracts.DAL.IDataContext.Find{T}"/>
+        /// <see cref="IDataContext.Find{T}"/>
         /// </summary>
-        /// <typeparam name="T"><see cref="Kash.Core.Contracts.DAL.IDataContext.Find{T}"/></typeparam>
-        /// <param name="id"><see cref="Kash.Core.Contracts.DAL.IDataContext.Find{T}"/></param>
-        /// <returns><see cref="Kash.Core.Contracts.DAL.IDataContext.Find{T}"/></returns>
+        /// <typeparam name="T"><see cref="IDataContext.Find{T}"/></typeparam>
+        /// <param name="id"><see cref="IDataContext.Find{T}"/></param>
+        /// <returns><see cref="IDataContext.Find{T}"/></returns>
         public T Find<T>(object id) where T : class, IBusinessEntity
         {
             return Find<T>(id);

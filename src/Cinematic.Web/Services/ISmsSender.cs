@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kash.Core.Sandbox.Web.Services
+namespace Cinematic.Web.Services
 {
     public interface ISmsSender
     {

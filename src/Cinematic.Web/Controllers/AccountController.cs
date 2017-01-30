@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Kash.Core.Sandbox.Web.Models;
-using Kash.Core.Sandbox.Web.Models.AccountViewModels;
-using Kash.Core.Sandbox.Web.Services;
+using Cinematic.Web.Models;
+using Cinematic.Web.Services;
+using Cinematic.Web.Models.AccountViewModels;
 
-namespace Kash.Core.Sandbox.Web.Controllers
+namespace Cinematic.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

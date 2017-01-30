@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Kash.Core.Sandbox.Web.Models;
-using Kash.Core.Sandbox.Web.Models.ManageViewModels;
-using Kash.Core.Sandbox.Web.Services;
+using Cinematic.Web.Models;
+using Cinematic.Web.Services;
+using Cinematic.Web.Models.ManageViewModels;
 
-namespace Kash.Core.Sandbox.Web.Controllers
+namespace Cinematic.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller

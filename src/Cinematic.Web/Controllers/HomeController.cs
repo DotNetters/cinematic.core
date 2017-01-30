@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kash.Core.Sandbox.Web.Controllers
+namespace Cinematic.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -2,7 +2,7 @@
   "title": "Cinematic.Web",
   "version": "0.0.0-1",
   "language": "es-ES",
-  "userSecretsId": "aspnet-Kash.Core.Sandbox.Web-0d17f550-b8e9-4b68-92bc-5d33f2e2abb2",
+  "userSecretsId": "aspnet-Cinematic.Web-0d17f550-b8e9-4b68-92bc-5d33f2e2abb2",
 
   "dependencies": {
     "Microsoft.NETCore.App": {

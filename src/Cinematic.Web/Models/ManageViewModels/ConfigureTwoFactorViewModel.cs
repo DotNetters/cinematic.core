@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Kash.Core.Sandbox.Web.Models.ManageViewModels
+namespace Cinematic.Web.Models.ManageViewModels
 {
     public class ConfigureTwoFactorViewModel
     {

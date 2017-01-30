@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Kash.Core.Sandbox.Web.Data;
-using Kash.Core.Sandbox.Web.Models;
-using Kash.Core.Sandbox.Web.Services;
+using Cinematic.Web.Data;
+using Cinematic.Web.Models;
+using Cinematic.Web.Services;
 
-namespace Kash.Core.Sandbox.Web
+namespace Cinematic.Web
 {
     public class Startup
     {

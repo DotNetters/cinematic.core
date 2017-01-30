@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Kash.Core.Sandbox.Web.Models;
+using Cinematic.Web.Models;
 
-namespace Kash.Core.Sandbox.Web.Data
+namespace Cinematic.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
