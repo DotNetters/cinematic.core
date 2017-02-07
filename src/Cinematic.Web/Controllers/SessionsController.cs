@@ -14,31 +14,31 @@ namespace Cinematic.Web.Controllers
 {
     public class SessionsController : Controller
     {
-        IDataContext _dataContext = null;
+        IDataContext DataContext { get; set; } = null;
 
         public SessionsController(IDataContext dataContext)
         {
-            _dataContext = dataContext;
+            DataContext = dataContext;
         }
 
         // GET: Sessions
         public ActionResult Index(int? page)
         {
             var viewModel = new SessionsIndexViewModel();
-            viewModel.PageCount = Math.Ceiling((double)_dataContext.Sessions.Count() / 10);
+            viewModel.PageCount = Math.Ceiling((double)DataContext.Sessions.Count() / 10);
 
             if (page.HasValue)
             {
                 viewModel.HasPrevious = page.Value > 1 ? true : false;
                 viewModel.HasNext = page.Value < viewModel.PageCount ? true : false;
-                viewModel.Sessions = _dataContext.Sessions.Skip((page.Value - 1) * 10).Take(10);
+                viewModel.Sessions = DataContext.Sessions.Skip((page.Value - 1) * 10).Take(10);
                 viewModel.Page = page.Value;
             }
             else
             {
                 viewModel.HasPrevious = false;
                 viewModel.HasNext = viewModel.PageCount > 1 ? true : false;
-                viewModel.Sessions = _dataContext.Sessions.Skip(0).Take(10);
+                viewModel.Sessions = DataContext.Sessions.Skip(0).Take(10);
                 viewModel.Page = 1;
             }
 
@@ -53,7 +53,7 @@ namespace Cinematic.Web.Controllers
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = _dataContext.Find<Session>(id);
+            Session session = DataContext.Find<Session>(id);
             if (session == null)
             {
                 return NotFound();
@@ -76,8 +76,8 @@ namespace Cinematic.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dataContext.Add(session);
-                _dataContext.SaveChanges();
+                DataContext.Add(session);
+                DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -91,7 +91,7 @@ namespace Cinematic.Web.Controllers
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = _dataContext.Find<Session>(id);
+            Session session = DataContext.Find<Session>(id);
             if (session == null)
             {
                 return NotFound();
@@ -108,8 +108,8 @@ namespace Cinematic.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dataContext.Update(session);
-                _dataContext.SaveChanges();
+                DataContext.Update(session);
+                DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(session);
@@ -122,7 +122,7 @@ namespace Cinematic.Web.Controllers
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = _dataContext.Find<Session>(id);
+            Session session = DataContext.Find<Session>(id);
             if (session == null)
             {
                 return NotFound();
@@ -135,9 +135,9 @@ namespace Cinematic.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Session session = _dataContext.Find<Session>(id);
-            _dataContext.Remove(session);
-            _dataContext.SaveChanges();
+            Session session = DataContext.Find<Session>(id);
+            DataContext.Remove(session);
+            DataContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -145,7 +145,7 @@ namespace Cinematic.Web.Controllers
         {
             if (disposing)
             {
-                _dataContext.Dispose();
+                DataContext.Dispose();
             }
             base.Dispose(disposing);
         }

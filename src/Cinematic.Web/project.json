@@ -28,7 +28,6 @@
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.1.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
-    "Microsoft.AspNetCore.Mvc": "1.1.0",
     "Microsoft.AspNetCore.Routing": "1.1.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
@@ -46,7 +45,9 @@
     "BundlerMinifier.Core": "2.2.306",
     "Cinematic.DAL": "0.0.0-1",
     "Cinematic.Domain": "0.0.0-1",
-    "Cinematic.Resources": "0.0.0-1"
+    "Cinematic.Resources": "0.0.0-1",
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0",
+    "Microsoft.AspNetCore.Mvc": "1.1.1"
   },
 
   "tools": {

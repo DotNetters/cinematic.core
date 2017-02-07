@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Cinematic.Web.Data;
 using Cinematic.Web.Models;
 using Cinematic.Web.Services;
+using Cinematic.Domain.Contracts;
+using Cinematic.DAL;
 
 namespace Cinematic.Web
 {
@@ -24,11 +26,11 @@ namespace Cinematic.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+            //    builder.AddUserSecrets();
+            //}
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -41,7 +43,12 @@ namespace Cinematic.Web
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                //options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
+                options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
+
+            services.AddDbContext<CinematicEFDataContext>(options =>
+                //options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
+                options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -49,9 +56,16 @@ namespace Cinematic.Web
 
             services.AddMvc();
 
+            services.AddOptions()
+                .Configure<DataConfiguration>(Configuration.GetSection(nameof(DataConfiguration)));
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            // App services	
+            // Register the service and implementation for the database context
+            services.AddScoped<IDataContext>(provider => provider.GetService<CinematicEFDataContext>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +73,8 @@ namespace Cinematic.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            loggerFactory.CreateLogger<Startup>().LogInformation("DBConnection: {0}", Configuration["DataConfiguration:DBConnection"]);
 
             if (env.IsDevelopment())
             {
