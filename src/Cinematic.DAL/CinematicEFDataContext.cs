@@ -50,7 +50,7 @@ namespace Cinematic.DAL
 
         void IDataContext.SaveChanges()
         {
-            SaveChanges();
+            base.SaveChanges();
         }
 
         #endregion
@@ -84,7 +84,7 @@ namespace Cinematic.DAL
         /// <param name="entity"><see cref="IDataContext.Add"/></param>
         public new void Add<T>(T entity) where T : class, IBusinessEntity
         {
-            Add(entity);
+            base.Add(entity);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Cinematic.DAL
 
             if (entity != null)
             {
-                Remove(entity);
+                base.Remove(entity);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace Cinematic.DAL
             var foundEntity = Find<T>(entity.Id);
             if (foundEntity != null)
             {
-                Remove(foundEntity);
+                base.Remove(foundEntity);
             }
             else
             {
@@ -142,7 +142,7 @@ namespace Cinematic.DAL
         /// <returns><see cref="IDataContext.Find{T}"/></returns>
         public T Find<T>(object id) where T : class, IBusinessEntity
         {
-            return Find<T>(id);
+            return base.Find<T>(id);
         } 
 
         #endregion

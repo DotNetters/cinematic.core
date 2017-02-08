@@ -1,4 +1,4 @@
-﻿@model Cinematic.Web.Models.SessionViewModels.SessionsIndexViewModel
+﻿@model SessionsIndexViewModel
 
 @{
     ViewBag.Title = Literals.Sessions;
@@ -8,7 +8,7 @@
 <hr />
 
 <p>
-    @Html.ActionLink(Literals.New, "Create", null, new { @class = "btn btn-primary btn-sm" })
+    <a asp-action="Create" class="btn btn-primary btn-sm">@Literals.New</a>
 </p>
 @if (Model.PageCount > 0)
 {
@@ -38,9 +38,9 @@
                 </td>
                 <td>
                     <div class="pull-right">
-                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
-                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-xs btn-default glyphicon glyphicon-eye-open"></a>
-                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-xs btn-default glyphicon glyphicon-trash"></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs btn-default glyphicon glyphicon-eye-open"></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs btn-default glyphicon glyphicon-trash"></a>
                     </div>
                 </td>
             </tr>
@@ -50,12 +50,12 @@
     <div class="well well-sm">
         @if (Model.HasPrevious)
         {
-            @Html.ActionLink("Anterior", "Index", new { page = Model.Page - 1 })
+            <a asp-action="Index" asp-route-page="@(Model.Page - 1)">Anterior</a>
         }
-        <span>Página: @Model.Page de @Model.PageCount</span>
+        <span>P&aacute;gina: @Model.Page de @Model.PageCount</span>
         @if (Model.HasNext)
         {
-            @Html.ActionLink("Siguiente", "Index", new { page = Model.Page + 1 })
+            <a asp-action="Index" asp-route-page="@(Model.Page + 1)">Siguiente</a>
         }
     </div>
 }
