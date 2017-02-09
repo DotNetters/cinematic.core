@@ -1,0 +1,44 @@
+﻿@model Session
+
+@{
+    ViewBag.Title = Literals.DeleteSession;
+}
+
+<h2>@Literals.DeleteSession</h2>
+<hr />
+
+<div class="alert alert-warning">@Literals.SureToDelete</div>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            <label asp-for="TimeAndDate"></label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeAndDate)
+        </dd>
+
+        <dt>
+            <label asp-for="Status"></label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+
+    <form asp-action="Delete">
+        <hr />
+        <div class="form-actions no-color">
+            <input type="submit" value="@Literals.Delete" class="btn btn-sm btn-primary" />
+            <a asp-action="Index" class="btn btn-sm btn-default">@Literals.Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+            $(function () { setActiveMenuItem("SessionsMenuItem"); });
+    </script>
+}

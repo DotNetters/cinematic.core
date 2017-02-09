@@ -1,14 +1,14 @@
 ﻿@model Session
 
 @{
-    ViewBag.Title = Literals.New;
+    ViewBag.Title = Literals.SessionEdit;
 }
 
-<h2>@Literals.NewSession</h2>
+<h2>@Literals.SessionEdit</h2>
 <hr />
 
-
 @Html.Partial("_EditForm")
+
 
 @section Scripts {
     <environment names="Development">
@@ -27,5 +27,4 @@
     <script type="text/javascript">
         $(function () { setActiveMenuItem("SessionsMenuItem"); });
     </script>
-
 }
