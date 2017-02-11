@@ -14,6 +14,7 @@ using Cinematic.Web.Models;
 using Cinematic.Web.Services;
 using Cinematic.Domain.Contracts;
 using Cinematic.DAL;
+using Cinematic.Domain;
 
 namespace Cinematic.Web
 {
@@ -66,6 +67,10 @@ namespace Cinematic.Web
             // App services	
             // Register the service and implementation for the database context
             services.AddScoped<IDataContext>(provider => provider.GetService<CinematicEFDataContext>());
+            services.AddTransient<ISessionManager, SessionManager>();
+            services.AddTransient<ITicketManager, TicketManager>();
+            services.AddTransient<IPriceManager, PriceManager>();
+            services.AddTransient<ISeatManager, SeatManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
