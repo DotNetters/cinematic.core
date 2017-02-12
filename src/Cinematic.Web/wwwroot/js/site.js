@@ -1,5 +1,4 @@
-﻿// Write your Javascript code.
-$(function () {
+﻿$(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 

@@ -78,7 +78,7 @@ namespace Cinematic.Resources {
         }
         
         /// <summary>
-        ///    Busca una cadena localizada similar a Sistema de venta de entradas..
+        ///    Busca una cadena localizada similar a Sistema de venta de entradas para sesiones de cine.
         /// </summary>
         public static string AppSummary {
             get {
@@ -92,6 +92,33 @@ namespace Cinematic.Resources {
         public static string AppTitle {
             get {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Busca una cadena localizada similar a DotNetters Zaragoza.
+        /// </summary>
+        public static string AppVendor {
+            get {
+                return ResourceManager.GetString("AppVendor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Busca una cadena localizada similar a contacto@dotnetters.es.
+        /// </summary>
+        public static string AppVendorEMail {
+            get {
+                return ResourceManager.GetString("AppVendorEMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Busca una cadena localizada similar a http://dotnetters.es.
+        /// </summary>
+        public static string AppVendorWebSite {
+            get {
+                return ResourceManager.GetString("AppVendorWebSite", resourceCulture);
             }
         }
         
@@ -339,6 +366,15 @@ namespace Cinematic.Resources {
         }
         
         /// <summary>
+        ///    Busca una cadena localizada similar a Soporte.
+        /// </summary>
+        public static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Busca una cadena localizada similar a Va a eliminar el elemento. ¿Está seguro?.
         /// </summary>
         public static string SureToDelete {
@@ -380,6 +416,15 @@ namespace Cinematic.Resources {
         public static string TicketsSelled {
             get {
                 return ResourceManager.GetString("TicketsSelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Busca una cadena localizada similar a Navegación.
+        /// </summary>
+        public static string ToggleNavigation {
+            get {
+                return ResourceManager.GetString("ToggleNavigation", resourceCulture);
             }
         }
         

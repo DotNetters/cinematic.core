@@ -7,25 +7,17 @@
 <h2>@Literals.NewSession</h2>
 <hr />
 
-
 @Html.Partial("_EditForm")
 
 @section Scripts {
-    <environment names="Development">
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation/dist/additional-methods.js" asp-append-version="true"></script>
-        <script src="~/lib/globalize/dist/globalize.js" asp-append-version="true"></script>
-        <script src="~/js/sitevalidate.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-validation/dist/additional-methods.min.js" asp-append-version="true"></script>
-        <script src="~/lib/globalize/dist/globalize.min.js" asp-append-version="true"></script>
-        <script src="~/js/sitevalidate.min.js" asp-append-version="true"></script>
-    </environment>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
     <script type="text/javascript">
-        $(function () { setActiveMenuItem("SessionsMenuItem"); });
+        $(function () {
+            setActiveMenuItem("SessionsMenuItem");
+            $('#timeAndDate').datetimepicker({
+                locale: 'es'
+            });
+        });
     </script>
-
 }

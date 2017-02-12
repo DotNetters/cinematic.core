@@ -7,6 +7,7 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
@@ -21,48 +22,57 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">@Literals.ToggleNavigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">@Literals.AppTitle</a>
+                <div style="padding-top: 2px;padding-right: 2px;">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img alt="@Literals.AppTitle" data-toggle="tooltip" data-placement="bottom" title="@Literals.AppTitle" src="~/images/tickets46_logo.png" />
+                    </a>
+                </div>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">@Literals.Home</a></li>
-                    <li><a asp-controller="TicketSelling" asp-action="Index">@Literals.TicketSelling</a></li>
-                    <li><a asp-controller="Sessions" asp-action="Index">@Literals.Sessions</a></li>
-                    <li><a asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li id="HomeMenuItem"><a asp-controller="Home" asp-action="Index">@Literals.Home</a></li>
+                    <li id="TicketSellingMenuItem"><a asp-controller="TicketSelling" asp-action="Index">@Literals.TicketSelling</a></li>
+                    <li id="SessionsMenuItem"><a asp-controller="Sessions" asp-action="Index">@Literals.Sessions</a></li>
+                    <li id="AboutMenuItem"><a asp-controller="Home" asp-action="About">@Literals.About</a></li>
+                    <li id="ContactMenuItem"><a asp-controller="Home" asp-action="Contact">@Literals.Contact</a></li>
                 </ul>
-                @*@await Html.PartialAsync("_LoginPartial")*@
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @SystemTime.Now().Year - @Literals.AppTitle.</p>
-        </footer>
     </div>
+    <footer class="footer body-content">
+        <div class="container">
+            <p class="text-muted">&copy; @SystemTime.Now().Year - @Literals.AppTitle.</p>
+        </div>
+    </footer>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/moment/min/moment-with-locales.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
+        <script src="~/js/site.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery">
         </script>
+        <script src="~/lib/moment/min/moment-with-locales.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/js/site.min.js"></script>
     </environment>
 
     @RenderSection("scripts", required: false)

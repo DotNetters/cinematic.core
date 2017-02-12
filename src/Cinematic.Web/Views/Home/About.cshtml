@@ -1,7 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = Literals.About;
 }
 <h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+<h3>@Literals.AppTitle</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>@Literals.AppSummary</p>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () { setActiveMenuItem("AboutMenuItem"); });
+    </script>
+}
