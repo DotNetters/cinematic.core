@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Cinematic.DAL.Migrations
 {
@@ -13,7 +14,7 @@ namespace Cinematic.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Status = table.Column<int>(nullable: false),
                     TimeAndDate = table.Column<DateTime>(nullable: false)
                 },
@@ -27,7 +28,7 @@ namespace Cinematic.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Reserved = table.Column<bool>(nullable: false),
                     Row = table.Column<int>(nullable: false),
                     SeatNumber = table.Column<int>(nullable: false),
@@ -49,7 +50,7 @@ namespace Cinematic.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Price = table.Column<double>(nullable: false),
                     SeatId = table.Column<int>(nullable: true),
                     TimeAndDate = table.Column<DateTime>(nullable: false)

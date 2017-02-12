@@ -44,12 +44,12 @@ namespace Cinematic.Web
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
-                options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
+                options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
+                //options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
 
             services.AddDbContext<CinematicEFDataContext>(options =>
-                //options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
-                options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
+                options.UseSqlServer(Configuration["DataConfiguration:DBConnection"]));
+                //options.UseSqlite(Configuration["DataConfiguration:DBConnection"]));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

@@ -8,13 +8,14 @@ using Cinematic.DAL;
 namespace Cinematic.DAL.Migrations
 {
     [DbContext(typeof(CinematicEFDataContext))]
-    [Migration("20170207223755_Initial")]
+    [Migration("20170212094019_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+                .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Cinematic.Domain.Seat", b =>
                 {
