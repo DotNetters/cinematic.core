@@ -7,8 +7,8 @@
     <input type="hidden" asp-for="Id" />
     }
     <div class="form-group">
-        <label asp-for="TimeAndDate" class="control-label col-sm-2"></label>
-        <div class="col-sm-3">
+        <label asp-for="TimeAndDate" class="control-label col-md-2"></label>
+        <div class="col-md-3">
             <div class="input-group date" id="timeAndDate">
                 <input asp-for="TimeAndDate" type="text" class="form-control" />
                 <span class="input-group-addon">
@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label asp-for="Status" class="control-label col-md-2"></label>
-        <div class="col-sm-3">
+        <div class="col-md-3">
             <select asp-for="Status" class="form-control" asp-items="@Html.GetEnumSelectList<SessionStatus>()"></select>
             <span asp-validation-for="Status" class="text-danger"></span>
         </div>

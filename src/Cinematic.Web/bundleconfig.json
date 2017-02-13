@@ -1,9 +1,6 @@
-﻿// Configure bundling and minification for the project.
-// More info at https://go.microsoft.com/fwlink/?LinkId=808241
 [
   {
     "outputFileName": "wwwroot/css/site.min.css",
-    // An array of relative input file paths. Globbing patterns supported
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
@@ -13,12 +10,34 @@
     "inputFiles": [
       "wwwroot/js/site.js"
     ],
-    // Optionally specify minification options
     "minify": {
       "enabled": true,
       "renameLocals": true
     },
-    // Optinally generate .map file
     "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/js/sitevalidate.min.js",
+    "inputFiles": [
+      "wwwroot/js/sitevalidate.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.min.js",
+    "inputFiles": [
+      "wwwroot/lib/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/globalize/dist/globalize.min.js",
+    "inputFiles": [
+      "wwwroot/lib/globalize/dist/globalize.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/jquery/dist/jquery.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.js"
+    ]
   }
 ]
