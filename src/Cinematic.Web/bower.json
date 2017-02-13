@@ -7,9 +7,9 @@
     "jquery-validation": "1.15.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "globalize": "1.1.1",
-    "eonasdan-bootstrap-datetimepicker": "4.17.37",
     "moment": "2.13.0",
-    "moment-timezone": "0.5.3"
+    "moment-timezone": "0.5.3",
+    "eonasdan-bootstrap-datetimepicker": "4.17.37"
   },
   "resolutions": {
     "eonasdan-bootstrap-datetimepicker": "4.17.45",

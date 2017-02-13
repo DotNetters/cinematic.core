@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Paquetes bower
+/src/Cinematic.Web/wwwroot/lib
