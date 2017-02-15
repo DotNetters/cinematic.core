@@ -9,7 +9,7 @@ using Cinematic.Contracts;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
-    [Category("Cinematic.Domain.SessionManager")]
+    [Category("Cinematic.SessionManager")]
     public class SessionManagerTests
     {
         #region Initialization

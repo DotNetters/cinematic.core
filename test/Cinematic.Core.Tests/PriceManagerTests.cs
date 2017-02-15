@@ -5,7 +5,7 @@ using FluentAssertions;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
-    [Category("Cinematic.Domain.PriceManager")]
+    [Category("Cinematic.PriceManager")]
     public class PriceManagerTests
     {
         #region Ctor tests

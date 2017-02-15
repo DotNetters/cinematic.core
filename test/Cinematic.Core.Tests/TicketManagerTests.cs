@@ -9,7 +9,7 @@ using Cinematic.Infrastructure;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
-    [Category("Cinematic.Domain.TicketManager")]
+    [Category("Cinematic.TicketManager")]
     public class TicketManagerTests
     {
         #region Common mocking

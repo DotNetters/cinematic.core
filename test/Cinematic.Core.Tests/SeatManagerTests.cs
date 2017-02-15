@@ -11,7 +11,7 @@ using Cinematic.Resources;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
-    [Category("Cinematic.Domain.SeatManager")]
+    [Category("Cinematic.SeatManager")]
     public class SeatManagerTests
     {
         #region Initialization
