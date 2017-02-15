@@ -17,24 +17,6 @@
     "sourceMap": true
   },
   {
-    "outputFileName": "wwwroot/js/sitevalidate.min.js",
-    "inputFiles": [
-      "wwwroot/js/sitevalidate.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/lib/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.min.js",
-    "inputFiles": [
-      "wwwroot/lib/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/lib/globalize/dist/globalize.min.js",
-    "inputFiles": [
-      "wwwroot/lib/globalize/dist/globalize.js"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/lib/jquery/dist/jquery.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery/dist/jquery.js"
