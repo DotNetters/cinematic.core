@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cinematic.Domain.Infrastructure
+namespace Cinematic.Infrastructure
 {
     /// <summary>
     /// Permite acceder a utilidades de medición de tiempo en el sistema

@@ -1,9 +1,10 @@
 {
-  "title": "Cinematic.Domain",
+  "title": "Cinematic.Core",
   "language": "es-ES",
   "version": "0.0.0-1",
 
   "dependencies": {
+    "Cinematic.Infrastructure": "0.0.0-1",
     "Cinematic.Resources": "0.0.0-1",
     "NETStandard.Library": "1.6.1",
     "System.ComponentModel.Annotations": "4.3.0",

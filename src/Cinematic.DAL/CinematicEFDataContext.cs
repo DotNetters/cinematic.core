@@ -1,14 +1,9 @@
-﻿using Cinematic.Domain;
-using Cinematic.Domain.Contracts;
-using Cinematic.Extensions;
+﻿using Cinematic.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinematic.DAL
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +8,8 @@ using Microsoft.Extensions.Logging;
 using Cinematic.Web.Data;
 using Cinematic.Web.Models;
 using Cinematic.Web.Services;
-using Cinematic.Domain.Contracts;
+using Cinematic.Contracts;
 using Cinematic.DAL;
-using Cinematic.Domain;
 
 namespace Cinematic.Web
 {

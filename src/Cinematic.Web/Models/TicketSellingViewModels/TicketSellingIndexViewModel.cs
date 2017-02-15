@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cinematic.Domain;
 
 namespace Cinematic.Web.Models.TicketSellingViewModels
 {

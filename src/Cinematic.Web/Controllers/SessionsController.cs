@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Cinematic.Domain;
 using System.Net;
-using Cinematic.Domain.Contracts;
+using Cinematic.Contracts;
 using Cinematic.Web.Models.SessionViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860

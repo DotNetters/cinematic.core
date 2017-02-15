@@ -1,11 +1,11 @@
-﻿using Cinematic.Domain.Contracts;
+﻿using Cinematic.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cinematic.Domain
+namespace Cinematic
 {
     /// <summary>
     /// Servicio que gestiona los precios de los <see cref="Ticket">tickets</see> a la venta

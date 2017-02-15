@@ -1,0 +1,15 @@
+﻿{
+  "title": "Cinematic.Core",
+  "language": "es-ES",
+  "version": "0.0.0-1",
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

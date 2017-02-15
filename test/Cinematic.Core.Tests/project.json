@@ -1,0 +1,31 @@
+{
+  "title": "Cinematic.Core.Tests",
+  "language": "es-ES",
+  "version": "0.0.0-1",
+
+  "dependencies": {
+    "Cinematic.Core": "0.0.0-1",
+    "FluentAssertions": "4.19.0",
+    "NETStandard.Library": "1.6.1",
+    "NUnit": "3.6.0",
+    "dotnet-test-nunit": "3.4.0-beta-3",
+    "Moq": "4.6.38-alpha"
+  },
+  "testRunner": "nunit",
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dnxcore50",
+        "netcoreapp1.0"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.1.0",
+          "type": "platform"
+        }
+
+      }
+    }
+  }
+}

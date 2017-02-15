@@ -17,7 +17,7 @@ namespace Cinematic.DAL.Migrations
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Cinematic.Domain.Seat", b =>
+            modelBuilder.Entity("Cinematic.Seat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -37,7 +37,7 @@ namespace Cinematic.DAL.Migrations
                     b.ToTable("Seats");
                 });
 
-            modelBuilder.Entity("Cinematic.Domain.Session", b =>
+            modelBuilder.Entity("Cinematic.Session", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -51,7 +51,7 @@ namespace Cinematic.DAL.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("Cinematic.Domain.Ticket", b =>
+            modelBuilder.Entity("Cinematic.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -69,16 +69,16 @@ namespace Cinematic.DAL.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("Cinematic.Domain.Seat", b =>
+            modelBuilder.Entity("Cinematic.Seat", b =>
                 {
-                    b.HasOne("Cinematic.Domain.Session", "Session")
+                    b.HasOne("Cinematic.Session", "Session")
                         .WithMany()
                         .HasForeignKey("SessionId");
                 });
 
-            modelBuilder.Entity("Cinematic.Domain.Ticket", b =>
+            modelBuilder.Entity("Cinematic.Ticket", b =>
                 {
-                    b.HasOne("Cinematic.Domain.Seat", "Seat")
+                    b.HasOne("Cinematic.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatId");
                 });

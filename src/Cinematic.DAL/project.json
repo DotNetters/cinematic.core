@@ -4,8 +4,8 @@
   "version": "0.0.0-1",
 
   "dependencies": {
-    "Cinematic.Domain": "0.0.0-1",
-    "Cinematic.Resources": "0.0.0-1",
+    "Cinematic.Core": "0.0.0-1",
+    "Cinematic.Infrastructure": "0.0.0-1",
     "Microsoft.EntityFrameworkCore": "1.1.0",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",

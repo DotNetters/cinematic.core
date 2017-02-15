@@ -1,13 +1,12 @@
-﻿using Cinematic.Domain.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Cinematic.Extensions;
 using Cinematic.Resources;
+using Cinematic.Contracts;
 
-namespace Cinematic.Domain
+namespace Cinematic
 {
     /// <summary>
     /// Servicio que gestiona la disponibilidad de butacas y su reserva

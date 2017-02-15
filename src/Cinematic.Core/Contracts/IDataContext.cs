@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace Cinematic.Domain.Contracts
+namespace Cinematic.Contracts
 {
     /// <summary>
     /// Data context. 

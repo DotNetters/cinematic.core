@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cinematic.Domain.Contracts
+namespace Cinematic.Contracts
 {
     /// <summary>
     /// Servicio que gestiona la venta de tickets

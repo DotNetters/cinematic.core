@@ -1,8 +1,8 @@
-﻿using Cinematic.Domain.Contracts;
+﻿using Cinematic.Contracts;
 using Cinematic.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cinematic.Domain
+namespace Cinematic
 {
     /// <summary>
     /// Representa una butaca en el sistema

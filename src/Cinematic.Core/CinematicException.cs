@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cinematic.Domain
+namespace Cinematic
 {
     /// <summary>
     /// Excepción general de la capa de dominio / aplicación

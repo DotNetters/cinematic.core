@@ -43,11 +43,12 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
     "BundlerMinifier.Core": "2.2.306",
-    "Cinematic.DAL": "0.0.0-1",
-    "Cinematic.Domain": "0.0.0-1",
-    "Cinematic.Resources": "0.0.0-1",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0",
-    "Microsoft.AspNetCore.Mvc": "1.1.1"
+    "Microsoft.AspNetCore.Mvc": "1.1.1",
+    "Cinematic.Core": "0.0.0-1",
+    "Cinematic.DAL": "0.0.0-1",
+    "Cinematic.Infrastructure": "0.0.0-1",
+    "Cinematic.Resources": "0.0.0-1"
   },
 
   "tools": {

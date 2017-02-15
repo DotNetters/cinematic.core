@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cinematic.Domain.Contracts;
+using Cinematic.Contracts;
 using Cinematic.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Cinematic.Web.Models.TicketSellingViewModels;

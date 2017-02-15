@@ -1,11 +1,11 @@
-﻿using Cinematic.Domain.Contracts;
+﻿using Cinematic.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cinematic.Domain
+namespace Cinematic
 {
     /// <summary>
     /// Ticket o entrada que se vende y representa la reserva de una butaca
