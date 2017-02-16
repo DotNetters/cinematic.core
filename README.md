@@ -1,10 +1,10 @@
-# cinematic.core
+# cinematic.core (Versión .NET Core)
 
-Implementa un sistema muy básico de venta de entradas para un cine (modo TPV). (Versión .NET Core)
+Implementa un sistema muy básico de venta de entradas para un cine (modo TPV).
 
 ## Propósito
 
-El propósito principal de este repositorio es servir de base para la preparación de charlas, talleres y otros eventos de la comunidad técnica [DotNetters Zaragoza](http://dotnetters.es).
+El propósito principal de este repositorio es servir de base para la preparación de charlas, talleres y otros eventos de la comunidad técnica [DotNetters Zaragoza](http://dotnetters.es), pero puede jugar con él quien quiera, barra libre.
 
 ## Instalación y ejecución
 
