@@ -1,6 +1,6 @@
 # cinematic.core
 
-Implementa un sistema muy básico de venta de entradas para un cine. (Versión .NET Core)
+Implementa un sistema muy básico de venta de entradas para un cine (modo TPV). (Versión .NET Core)
 
 ## Propósito
 
