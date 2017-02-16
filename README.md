@@ -31,13 +31,13 @@ El propÃ³sito principal de este repositorio es servir de base para la preparaciÃ
 2. Compilar
 3. Seleccionar el proyecto web como proyecto de inicio
 4. Para generar la BBDD, ir a la consola del administrador de paquetes (Ver > Otras ventanas > Consola del administrador de paquetes)
-   a. Seleccionar en el desplegable el proyecto Cinematic.DAL
-   b. Ejecutar el comando: 
+   - Seleccionar en el desplegable el proyecto Cinematic.DAL
+   - Ejecutar el comando: 
     ```<bash>
     Update-Database -Context CinematicEFDataContext
     ```
-   c. Seleccionar en el desplegable el proyecto Cinematic.Web
-   d. Ejecutar el comando: 
+   - Seleccionar en el desplegable el proyecto Cinematic.Web
+   - Ejecutar el comando: 
     ```<bash>
     Update-Database -Context ApplicationDbContext
     ```
