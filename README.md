@@ -12,7 +12,7 @@ El propósito principal de este repositorio es servir de base para la preparaci�
 
 - **IDE**
   - **Sólo windows:** [Visual Studio (sirven las ediciones Community)](https://www.visualstudio.com/es/downloads/)
-  - Visual Studio 2015 (Update 3) o Visual Studio 2017
+    - Visual Studio 2015 (Update 3) o Visual Studio 2017
   - **Windows, Linux, MacOS:** [Visual Studio Code](http://code.visualstudio.com/)
 - [**.NET Core**](https://www.microsoft.com/net/core): En el enlace están las instrucciones de instalación para todas las plataformas y todos los IDE, seleccionar el entorno según se haya montado
 - Acceso a datos
