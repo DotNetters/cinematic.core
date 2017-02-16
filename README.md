@@ -45,29 +45,29 @@ El propósito principal de este repositorio es servir de base para la preparaci�
 
 ### Con Visual Studio Code (Windows, Linux, MacOS)
 
-1. Clonar el proyecto desde github
+- Clonar el proyecto desde github
 ```<bash>
 git clone https://github.com/DotNetters/cinematic.core.git
 ```
-2. Desde la raíz del proyecto (por ejemplo c:\cinematic.core), ejecutar 
+- Desde la raíz del proyecto (por ejemplo c:\cinematic.core), ejecutar 
 ```<bash>
 dotnet restore
 ```
-3. Instalar bower si no lo tenemos instalado
+- Instalar bower si no lo tenemos instalado
 ```<bash>
 npm install -g bower
 ```
-4. Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
+- Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
 ```<bash>
 bower install 
 ```
-5. Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
+- Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
 ```<bash>
 dotnet run 
 ```
-6. Apuntar con el navegador web a la URL http://localhost:5000
-7. Para ejecutar las pruebas unitarias (C#), ir a la carpeta del proyecto de pruebas unitarias (por ejemplo c:\cinematic.core\test\Cinematic.Core.Tests) y ejecutar
+- Apuntar con el navegador web a la URL http://localhost:5000
+- Para ejecutar las pruebas unitarias (C#), ir a la carpeta del proyecto de pruebas unitarias (por ejemplo c:\cinematic.core\test\Cinematic.Core.Tests) y ejecutar
 ```<language>
 dotnet test
 ```
-8. Para desarrollar con el editor, abrir desde VS Code la carpeta raíz del proyecto (por ejemplo c:\cinematic.core)
+- Para desarrollar con el editor, abrir desde VS Code la carpeta raíz del proyecto (por ejemplo c:\cinematic.core)
