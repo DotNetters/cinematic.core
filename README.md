@@ -27,10 +27,13 @@ El propósito principal de este repositorio es servir de base para la preparaci�
 
 ### Desde Visual Studio (>= 2015) (Sólo windows)
 
-1. Descargar el código desde github con la herramienta integrada en Visual Studio
-2. Compilar
-3. Seleccionar el proyecto web como proyecto de inicio
-4. Para generar la BBDD, ir a la consola del administrador de paquetes (Ver > Otras ventanas > Consola del administrador de paquetes)
+Descargar el código desde github con la herramienta integrada en Visual Studio
+
+Compilar
+
+Seleccionar el proyecto web como proyecto de inicio
+
+Para generar la BBDD, ir a la consola del administrador de paquetes (Ver > Otras ventanas > Consola del administrador de paquetes)
    - Seleccionar en el desplegable el proyecto Cinematic.DAL
    - Ejecutar el comando: 
     ```<bash>
@@ -41,33 +44,54 @@ El propósito principal de este repositorio es servir de base para la preparaci�
     ```<bash>
     Update-Database -Context ApplicationDbContext
     ```
-9. Pulsar F5
+
+Pulsar F5
 
 ### Con Visual Studio Code (Windows, Linux, MacOS)
 
-- Clonar el proyecto desde github
+Clonar el proyecto desde github
 ```<bash>
 git clone https://github.com/DotNetters/cinematic.core.git
 ```
-- Desde la raíz del proyecto (por ejemplo c:\cinematic.core), ejecutar 
+
+Desde la raíz del proyecto (por ejemplo /home/[user]/work/cinematic.core), ejecutar 
 ```<bash>
 dotnet restore
 ```
-- Instalar bower si no lo tenemos instalado
+
+Para generar la base de datos: 
+  - Desde la carpeta del proyecto DAL (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.DAL)
+    ```<bash>
+    dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context CinematicEFDataContext --verbose
+    ```
+  - Desde la carpeta del proyecto WEB (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.Web)
+    ```<bash>
+    dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context ApplicationDbContext --verbose
+    ```
+
+Instalar bower si no lo tenemos instalado
 ```<bash>
 npm install -g bower
 ```
-- Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
+
+Desde la carpeta del proyecto web (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.Web), ejecutar
 ```<bash>
 bower install 
 ```
-- Desde la carpeta del proyecto web (por ejemplo c:\cinematic.core\src\Cinematic.Web), ejecutar
+
+Desde la carpeta del proyecto web (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.Web), ejecutar
 ```<bash>
 dotnet run 
 ```
-- Apuntar con el navegador web a la URL http://localhost:5000
-- Para ejecutar las pruebas unitarias (C#), ir a la carpeta del proyecto de pruebas unitarias (por ejemplo c:\cinematic.core\test\Cinematic.Core.Tests) y ejecutar
+
+Apuntar con el navegador web a la URL http://localhost:5000
+
+Para ejecutar las pruebas unitarias (C#), ir a la carpeta del proyecto de pruebas unitarias (por ejemplo /home/[user]/work/cinematic.core/test/Cinematic.Core.Tests) y ejecutar
 ```<language>
 dotnet test
 ```
-- Para desarrollar con el editor, abrir desde VS Code la carpeta raíz del proyecto (por ejemplo c:\cinematic.core)
+
+Para desarrollar con el editor, abrir desde VS Code la carpeta raíz del proyecto (por ejemplo /home/[user]/work/cinematic.core)
+```<bash>
+code .
+```
