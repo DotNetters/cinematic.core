@@ -36,14 +36,14 @@ Seleccionar el proyecto web como proyecto de inicio
 Para generar la BBDD, ir a la consola del administrador de paquetes (Ver > Otras ventanas > Consola del administrador de paquetes)
    - Seleccionar en el desplegable el proyecto Cinematic.DAL
    - Ejecutar el comando: 
-    ```<bash>
-    Update-Database -Context CinematicEFDataContext
-    ```
+```<bash>
+Update-Database -Context CinematicEFDataContext
+```
    - Seleccionar en el desplegable el proyecto Cinematic.Web
    - Ejecutar el comando: 
-    ```<bash>
-    Update-Database -Context ApplicationDbContext
-    ```
+```<bash>
+Update-Database -Context ApplicationDbContext
+```
 
 Pulsar F5
 
@@ -61,13 +61,13 @@ dotnet restore
 
 Para generar la base de datos: 
   - Desde la carpeta del proyecto DAL (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.DAL)
-    ```<bash>
-    dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context CinematicEFDataContext --verbose
-    ```
+```<bash>
+dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context CinematicEFDataContext --verbose
+```
   - Desde la carpeta del proyecto WEB (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.Web)
-    ```<bash>
-    dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context ApplicationDbContext --verbose
-    ```
+```<bash>
+dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context ApplicationDbContext --verbose
+```
 
 Instalar bower si no lo tenemos instalado
 ```<bash>
