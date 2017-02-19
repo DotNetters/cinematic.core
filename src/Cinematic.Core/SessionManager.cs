@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cinematic;
 
 namespace Cinematic
 {
@@ -70,7 +71,7 @@ namespace Cinematic
         /// <inheritdoc />
         public Session RemoveSession(Session session)
         {
-            var q = _dataContext.Tickets.Where(t => t.Seat.Session.Id == session.Id);
+            var q = _dataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id);
 
             var hasTickets = q.FirstOrDefault() != null;
 

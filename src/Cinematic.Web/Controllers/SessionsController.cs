@@ -145,9 +145,17 @@ namespace Cinematic.Web.Controllers
             {
                 return NotFound();
             }
-            SessionManager.RemoveSession(session);
-            DataContext.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                SessionManager.RemoveSession(session);
+                DataContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (CinematicException ex)
+            {
+                var viewModel = new SessionsDeleteConfirmedViewModel() { Session = session, Exception = ex };
+                return View("DeleteConfirmed", viewModel);
+            }
         }
 
         protected override void Dispose(bool disposing)
