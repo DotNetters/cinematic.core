@@ -13,9 +13,17 @@ namespace Cinematic.Web.Controllers
     {
         IDataContext DataContext { get; set; } = null;
 
-        public SessionsController(IDataContext dataContext)
+        ISessionManager SessionManager { get; set; } = null;
+
+        public SessionsController(IDataContext dataContext, ISessionManager sessionManager)
         {
+            if (dataContext == null)
+                throw new ArgumentNullException("dataContext");
+            if (sessionManager == null)
+                throw new ArgumentNullException("sessionManager");
+
             DataContext = dataContext;
+            SessionManager = sessionManager;
         }
 
         // GET: Sessions
@@ -132,8 +140,12 @@ namespace Cinematic.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Session session = DataContext.Find<Session>(id);
-            DataContext.Remove(session);
+            Session session = DataContext.Find<Session>(id);            
+            if (session == null)
+            {
+                return NotFound();
+            }
+            SessionManager.RemoveSession(session);
             DataContext.SaveChanges();
             return RedirectToAction("Index");
         }

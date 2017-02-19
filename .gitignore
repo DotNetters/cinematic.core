@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # Paquetes bower
 /src/Cinematic.Web/wwwroot/lib
+
+# .vscode
+/.vscode

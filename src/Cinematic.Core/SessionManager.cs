@@ -66,5 +66,24 @@ namespace Cinematic
 
             return session;
         }
+
+        /// <inheritdoc />
+        public Session RemoveSession(Session session)
+        {
+            var q = _dataContext.Tickets.Where(t => t.Seat.Session.Id == session.Id);
+
+            var hasTickets = q.FirstOrDefault() != null;
+
+            if (hasTickets)
+            {
+                throw new CinematicException("La sesión no se puede eliminar por que ya se han vendido entradas");
+            }
+            else
+            {
+                _dataContext.Remove(session);
+            }
+
+            return session;
+        }
     }
 }
