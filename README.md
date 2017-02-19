@@ -62,11 +62,11 @@ dotnet restore
 Para generar la base de datos: 
   - Desde la carpeta del proyecto DAL (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.DAL)
 ```<bash>
-dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context CinematicEFDataContext --verbose
+dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web database update --context CinematicEFDataContext --verbose
 ```
   - Desde la carpeta del proyecto WEB (por ejemplo /home/[user]/work/cinematic.core/src/Cinematic.Web)
 ```<bash>
-dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web --build-base-path ./bin database update --context ApplicationDbContext --verbose
+dotnet ef --startup-project /home/[user]/work/cinematic.core/src/Cinematic.Web database update --context ApplicationDbContext --verbose
 ```
 
 Instalar bower si no lo tenemos instalado
