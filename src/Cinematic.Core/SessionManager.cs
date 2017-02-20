@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cinematic;
+using Cinematic.Resources;
 
 namespace Cinematic
 {
@@ -71,13 +72,17 @@ namespace Cinematic
         /// <inheritdoc />
         public Session RemoveSession(Session session)
         {
+            if (session == null)
+                throw new ArgumentNullException("session");
+
             var q = _dataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id);
 
             var hasTickets = q.FirstOrDefault() != null;
 
             if (hasTickets)
             {
-                throw new CinematicException("La sesión no se puede eliminar por que ya se han vendido entradas");
+                throw new CinematicException(
+                    string.Format(Messages.SessionCannotBeRemovedBecauseItHasSoldTickets, session.TimeAndDate.ToString("dd/MM/yyyy HH:mm")));
             }
             else
             {
