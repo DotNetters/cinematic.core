@@ -27,7 +27,7 @@ namespace Cinematic.Web.Controllers
         }
 
         // GET: Sessions
-        public ActionResult Index(int? page)
+        public IActionResult Index(int? page)
         {
             var viewModel = new SessionsIndexViewModel();
             viewModel.PageCount = Math.Ceiling((double)DataContext.Sessions.Count() / 10);
@@ -52,7 +52,7 @@ namespace Cinematic.Web.Controllers
         }
 
         // GET: Sessions/Details/5
-        public ActionResult Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -69,7 +69,8 @@ namespace Cinematic.Web.Controllers
         // GET: Sessions/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new SessionsViewModel();
+            return View(viewModel);
         }
 
         // POST: Sessions/Create
@@ -77,11 +78,11 @@ namespace Cinematic.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("Id,TimeAndDate,Status")] Session session)
+        public IActionResult Create(SessionsViewModel session)
         {
             if (ModelState.IsValid)
             {
-                DataContext.Add(session);
+                SessionManager.CreateSession(session.TimeAndDate);
                 DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -90,7 +91,7 @@ namespace Cinematic.Web.Controllers
         }
 
         // GET: Sessions/Edit/5
-        public ActionResult Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -101,7 +102,10 @@ namespace Cinematic.Web.Controllers
             {
                 return NotFound();
             }
-            return View(session);
+
+            var viewModel = new SessionsEditViewModel(session);
+
+            return View(viewModel);
         }
 
         // POST: Sessions/Edit/5
@@ -109,7 +113,7 @@ namespace Cinematic.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind("Id,TimeAndDate,Status")] Session session)
+        public IActionResult Edit([Bind("Id,TimeAndDate,Status")] Session session)
         {
             if (ModelState.IsValid)
             {
@@ -121,7 +125,7 @@ namespace Cinematic.Web.Controllers
         }
 
         // GET: Sessions/Delete/5
-        public ActionResult Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -138,7 +142,7 @@ namespace Cinematic.Web.Controllers
         // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             Session session = DataContext.Find<Session>(id);            
             if (session == null)

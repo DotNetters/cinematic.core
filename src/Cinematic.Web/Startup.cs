@@ -74,8 +74,6 @@ namespace Cinematic.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            loggerFactory.CreateLogger<Startup>().LogInformation("DBConnection: {0}", Configuration["DataConfiguration:DBConnection"]);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotCancelSessionBecauseIsClosed" xml:space="preserve">
+    <value>No se puede cancelar la sesión, porque su estado actual es CERRADA</value>
+  </data>
+  <data name="CannotCloseSessionBecauseIsCancelled" xml:space="preserve">
+    <value>No se puede cerrar la sesión, porque su estado actual es CANCELADA</value>
+  </data>
   <data name="RowNumberIsAboveMaxAllowed" xml:space="preserve">
     <value>El número de la fila es mayor que el máximo permitido</value>
   </data>
@@ -140,6 +146,9 @@
   </data>
   <data name="SellFailed" xml:space="preserve">
     <value>Se ha producido un error, y no se ha podido completar la venta. No se ha reservado ninguna entrada.</value>
+  </data>
+  <data name="SessionCannotBeCreatedBecauseIsDupe" xml:space="preserve">
+    <value>Ya existe una sesión a la misma fecha y hora</value>
   </data>
   <data name="SessionCannotBeRemovedBecauseItHasSoldTickets" xml:space="preserve">
     <value>La sesión {0} no se puede eliminar por que ya se han vendido entradas</value>

@@ -1,4 +1,4 @@
-﻿@model Session
+﻿@model SessionsViewModel
 
 @{
     ViewBag.Title = Literals.New;
@@ -7,7 +7,27 @@
 <h2>@Literals.NewSession</h2>
 <hr />
 
-@Html.Partial("_EditForm")
+<form class="form-horizontal" asp-action="Create">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="TimeAndDate" class="control-label col-md-2"></label>
+        <div class="col-md-3">
+            <div class="input-group date" id="timeAndDate">
+                <input asp-for="TimeAndDate" type="text" class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span asp-validation-for="TimeAndDate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr />
+    <div>
+        <input type="submit" value="@Literals.Save" class="btn btn-sm btn-primary" />
+        <a asp-action="Index" class="btn btn-sm btn-default">@Literals.Back</a>
+    </div>
+</form>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

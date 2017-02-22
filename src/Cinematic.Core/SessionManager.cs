@@ -14,7 +14,7 @@ namespace Cinematic
     /// </summary>
     public class SessionManager : ISessionManager
     {
-        IDataContext _dataContext = null;
+        IDataContext DataContext { get; set; } = null;
 
         /// <summary>
         /// Inicializa una instancia de <see cref="SessionManager"/>
@@ -25,13 +25,13 @@ namespace Cinematic
             if (dataContext == null)
                 throw new ArgumentNullException("dataContext");
 
-            _dataContext = dataContext;
+            DataContext = dataContext;
         }
 
         /// <inheritdoc />
         public IEnumerable<Session> GetAvailableSessions()
         {
-            return _dataContext.Sessions.Where(s => s.Status == SessionStatus.Open);
+            return DataContext.Sessions.Where(s => s.Status == SessionStatus.Open);
         }
 
         /// <inheritdoc />
@@ -39,10 +39,15 @@ namespace Cinematic
         {
             var session = new Session();
 
+            var dupeSession = DataContext.Sessions.Where(s => s.TimeAndDate == timeAndDate);
+
+            if (dupeSession != null)
+                throw new CinematicException(Messages.SessionCannotBeCreatedBecauseIsDupe);
+
             session.Status = SessionStatus.Open;
             session.TimeAndDate = timeAndDate;
 
-            _dataContext.Add(session);
+            DataContext.Add(session);
 
             return session;
         }
@@ -52,6 +57,9 @@ namespace Cinematic
         {
             if (session == null)
                 throw new ArgumentNullException("session");
+
+            if (session.Status != SessionStatus.Open)
+                throw new CinematicException(Messages.CannotCloseSessionBecauseIsCancelled);
 
             session.Status = SessionStatus.Closed;
 
@@ -64,6 +72,9 @@ namespace Cinematic
             if (session == null)
                 throw new ArgumentNullException("session");
 
+            if (session.Status != SessionStatus.Open)
+                throw new CinematicException(Messages.CannotCancelSessionBecauseIsClosed);
+
             session.Status = SessionStatus.Cancelled;
 
             return session;
@@ -75,7 +86,7 @@ namespace Cinematic
             if (session == null)
                 throw new ArgumentNullException("session");
 
-            var q = _dataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id);
+            var q = DataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id);
 
             var hasTickets = q.FirstOrDefault() != null;
 
@@ -86,7 +97,7 @@ namespace Cinematic
             }
             else
             {
-                _dataContext.Remove(session);
+                DataContext.Remove(session);
             }
 
             return session;
