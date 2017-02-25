@@ -31,7 +31,7 @@ namespace Cinematic.Domain.Tests
             //Arrange
             var target = new PriceManager();
 
-            var session = new Session() { Id = 0, Status = SessionStatus.Open, TimeAndDate = DateTime.Now };
+            var session = new Session() { Id = 0, TimeAndDate = DateTime.Now };
 
             //Act
             var result = target.GetTicketPrice(session, 1, 1);

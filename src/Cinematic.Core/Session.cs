@@ -35,10 +35,45 @@ namespace Cinematic
         [Display(ResourceType=typeof(Literals), Name="Entity_Session_TimeAndDate_DisplayName")]
         public DateTime TimeAndDate { get; set; }
 
+        public Session()
+        {
+            Status = SessionStatus.Open;
+        }
+
         /// <summary>
         /// Indica el estado actual de la sesión
         /// </summary>
         [Display(ResourceType = typeof(Literals), Name = "Entity_Session_Status_DisplayName")]
-        public SessionStatus Status { get; set; }
+        public SessionStatus Status { get; private set; }
+
+        /// <summary>
+        /// Cierra la sesión (Ya se está celebrando, no se pueden vender más tickets, ni devolverlos)
+        /// </summary>
+        public void Close()
+        {
+            if (Status != SessionStatus.Open)
+                throw new CinematicException(Messages.CannotCloseSessionBecauseIsCancelledOrClosed);
+
+            Status = SessionStatus.Closed;
+        }
+
+        /// <summary>
+        /// Cancela la sesión (no se ha podido celebrar, se pueden devolver tickets, pero no vender más)
+        /// </summary>
+        public void Cancel()
+        {
+            if (Status != SessionStatus.Open)
+                throw new CinematicException(Messages.CannotCancelSessionBecauseIsClosedOrCancelled);
+
+            Status = SessionStatus.Cancelled;
+        }
+
+        public void Reopen()
+        {
+            if (Status == SessionStatus.Open)
+                throw new CinematicException(Messages.CannotReopenSessionBecauseIsOpen);
+
+            Status = SessionStatus.Open;
+        }
     }
 }

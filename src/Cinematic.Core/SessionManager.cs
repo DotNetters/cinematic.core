@@ -10,7 +10,7 @@ using Cinematic.Resources;
 namespace Cinematic
 {
     /// <summary>
-    /// Servicio que gestiona las sesiones para las que se ponen <see cref="Ticket">tickets</see> a la venta
+    /// Servicio que gestiona las sesiones para las que se ponen <see cref="Ticket">entradas</see> a la venta
     /// </summary>
     public class SessionManager : ISessionManager
     {
@@ -39,12 +39,8 @@ namespace Cinematic
         {
             var session = new Session();
 
-            var dupeSession = DataContext.Sessions.Where(s => s.TimeAndDate == timeAndDate);
+            CheckDupedSession(timeAndDate);
 
-            if (dupeSession != null)
-                throw new CinematicException(Messages.SessionCannotBeCreatedBecauseIsDupe);
-
-            session.Status = SessionStatus.Open;
             session.TimeAndDate = timeAndDate;
 
             DataContext.Add(session);
@@ -53,42 +49,31 @@ namespace Cinematic
         }
 
         /// <inheritdoc />
-        public Session CloseSession(Session session)
+        public Session UpdateSessionTimeAndDate(int sessionId, DateTime timeAndDate)
         {
+            var session = DataContext.Find<Session>(sessionId);
+
             if (session == null)
-                throw new ArgumentNullException("session");
+            {
+                throw new CinematicException(Messages.SessionNotAvailableOrNotFound);
+            }
 
-            if (session.Status != SessionStatus.Open)
-                throw new CinematicException(Messages.CannotCloseSessionBecauseIsCancelled);
+            CheckDupedSession(timeAndDate, sessionId);
 
-            session.Status = SessionStatus.Closed;
+            session.TimeAndDate = timeAndDate;
 
             return session;
         }
 
         /// <inheritdoc />
-        public Session CancelSession(Session session)
+        public Session RemoveSession(int sessionId)
         {
+            var session = DataContext.Find<Session>(sessionId);
+
             if (session == null)
-                throw new ArgumentNullException("session");
+                throw new CinematicException(Messages.SessionNotAvailableOrNotFound);
 
-            if (session.Status != SessionStatus.Open)
-                throw new CinematicException(Messages.CannotCancelSessionBecauseIsClosed);
-
-            session.Status = SessionStatus.Cancelled;
-
-            return session;
-        }
-
-        /// <inheritdoc />
-        public Session RemoveSession(Session session)
-        {
-            if (session == null)
-                throw new ArgumentNullException("session");
-
-            var q = DataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id);
-
-            var hasTickets = q.FirstOrDefault() != null;
+            var hasTickets = DataContext.Tickets.AsQueryable().Include(t => t.Seat).Where(t => t.Seat.Session.Id == session.Id).Count() > 0;
 
             if (hasTickets)
             {
@@ -101,6 +86,30 @@ namespace Cinematic
             }
 
             return session;
+        }
+
+        private void CheckDupedSession(DateTime timeAndDate, int? selfId = null)
+        {
+            var q = DataContext.Sessions.Where(s => s.TimeAndDate == timeAndDate);
+
+            if (selfId.HasValue)
+            {
+                q = q.Where(s => s.Id != selfId.Value);
+            }
+
+            var dupedSession = q.Count();
+
+            if (dupedSession > 0)
+            {
+                if (!selfId.HasValue)
+                {
+                    throw new CinematicException(Messages.SessionCannotBeCreatedBecauseIsDupe);
+                }
+                else
+                {
+                    throw new CinematicException(Messages.SessionCannotBeUpdatedBecauseDateIsDupe);
+                }
+            }
         }
     }
 }

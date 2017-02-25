@@ -9,13 +9,13 @@ namespace Cinematic.Web.Models.SessionViewModels
 {
     public class SessionsEditViewModel : SessionsViewModel
     {
-        public int SessionId { get; private set; }
+        public int SessionId { get; set; }
 
         [Display(ResourceType = typeof(Literals), Name = "Entity_Session_Status_DisplayName")]
-        public SessionStatus Status { get; private set; }
+        public SessionStatus Status { get; set; }
 
-        public string ToNextStatus1 { get; private set; }
-        public string ToNextStatus2 { get; private set; }
+        public string ToNextStatus1 { get; set; }
+        public string ToNextStatus2 { get; set; }
 
         public SessionsEditViewModel(Session session)
         {
@@ -33,8 +33,8 @@ namespace Cinematic.Web.Models.SessionViewModels
 
             if (Status == SessionStatus.Cancelled)
                 ToNextStatus1 = Literals.Close;
-
-
         }
+
+        public SessionsEditViewModel() { }
     }
 }

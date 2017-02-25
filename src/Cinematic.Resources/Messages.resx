@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CannotCancelSessionBecauseIsClosed" xml:space="preserve">
-    <value>No se puede cancelar la sesión, porque su estado actual es CERRADA</value>
+  <data name="CannotCancelSessionBecauseIsClosedOrCancelled" xml:space="preserve">
+    <value>No se puede cancelar la sesión, porque su estado actual es CERRADA o CANCELADA</value>
   </data>
-  <data name="CannotCloseSessionBecauseIsCancelled" xml:space="preserve">
-    <value>No se puede cerrar la sesión, porque su estado actual es CANCELADA</value>
+  <data name="CannotCloseSessionBecauseIsCancelledOrClosed" xml:space="preserve">
+    <value>No se puede cerrar la sesión, porque su estado actual es CANCELADA o CERRADA</value>
+  </data>
+  <data name="CannotReopenSessionBecauseIsOpen" xml:space="preserve">
+    <value>No se puede reabrir la sesión, porque ya está ABIERTA</value>
   </data>
   <data name="RowNumberIsAboveMaxAllowed" xml:space="preserve">
     <value>El número de la fila es mayor que el máximo permitido</value>
@@ -152,6 +155,9 @@
   </data>
   <data name="SessionCannotBeRemovedBecauseItHasSoldTickets" xml:space="preserve">
     <value>La sesión {0} no se puede eliminar por que ya se han vendido entradas</value>
+  </data>
+  <data name="SessionCannotBeUpdatedBecauseDateIsDupe" xml:space="preserve">
+    <value>No se puede actualizar la fecha de la sesión porque ya existe otra sesión con la misma fecha</value>
   </data>
   <data name="SessionIsCancelledNoTicketsAvailable" xml:space="preserve">
     <value>La sesión ha sido cancelada. No hay entradas a la venta</value>

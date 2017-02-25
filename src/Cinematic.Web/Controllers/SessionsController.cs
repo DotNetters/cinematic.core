@@ -78,16 +78,16 @@ namespace Cinematic.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(SessionsViewModel session)
+        public IActionResult Create(SessionsViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                SessionManager.CreateSession(session.TimeAndDate);
+                SessionManager.CreateSession(viewModel.TimeAndDate);
                 DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(session);
+            return View(viewModel);
         }
 
         // GET: Sessions/Edit/5
@@ -113,15 +113,23 @@ namespace Cinematic.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("Id,TimeAndDate,Status")] Session session)
+        public IActionResult Edit(SessionsEditViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                DataContext.Update(session);
-                DataContext.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    SessionManager.UpdateSessionTimeAndDate(viewModel.SessionId, viewModel.TimeAndDate);
+                    DataContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch(CinematicException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return View(viewModel);
+                }
             }
-            return View(session);
+            return View(viewModel);
         }
 
         // GET: Sessions/Delete/5
@@ -151,7 +159,7 @@ namespace Cinematic.Web.Controllers
             }
             try
             {
-                SessionManager.RemoveSession(session);
+                SessionManager.RemoveSession(id);
                 DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -160,15 +168,6 @@ namespace Cinematic.Web.Controllers
                 var viewModel = new SessionsDeleteConfirmedViewModel() { Session = session, Exception = ex };
                 return View("DeleteConfirmed", viewModel);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                DataContext.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

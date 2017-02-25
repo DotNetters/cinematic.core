@@ -10,30 +10,39 @@ using Cinematic.Resources;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
+    [TestOf(typeof(SessionManager))]
     [Category("Cinematic.SessionManager")]
     public class SessionManagerTests
     {
         #region Initialization
 
-        List<Session> _sessions;
+        List<Session> Sessions { get; set; }
 
         [SetUp]
         public void PrepareTests()
         {
-            _sessions = new List<Session>()
+            Sessions = new List<Session>()
             {
-                new Session() { Id=1, Status=SessionStatus.Open, TimeAndDate=new DateTime(2016, 03, 21, 17, 0, 0) },
-                new Session() { Id=2, Status=SessionStatus.Open, TimeAndDate=new DateTime(2016, 03, 21, 19, 0, 0) },
-                new Session() { Id=3, Status=SessionStatus.Open, TimeAndDate=new DateTime(2016, 03, 21, 21, 0, 0) },
+                new Session() { Id=1, TimeAndDate=new DateTime(2016, 03, 21, 17, 0, 0) },
+                new Session() { Id=2, TimeAndDate=new DateTime(2016, 03, 21, 19, 0, 0) },
+                new Session() { Id=3, TimeAndDate=new DateTime(2016, 03, 21, 21, 0, 0) },
 
-                new Session() { Id=4, Status=SessionStatus.Closed, TimeAndDate=new DateTime(2016, 03, 19, 17, 0, 0) },
-                new Session() { Id=5, Status=SessionStatus.Closed, TimeAndDate=new DateTime(2016, 03, 19, 19, 0, 0) },
-                new Session() { Id=6, Status=SessionStatus.Closed, TimeAndDate=new DateTime(2016, 03, 19, 21, 0, 0) },
+                new Session() { Id=4, TimeAndDate=new DateTime(2016, 03, 19, 17, 0, 0) },
+                new Session() { Id=5, TimeAndDate=new DateTime(2016, 03, 19, 19, 0, 0) },
+                new Session() { Id=6, TimeAndDate=new DateTime(2016, 03, 19, 21, 0, 0) },
 
-                new Session() { Id=7, Status=SessionStatus.Cancelled, TimeAndDate=new DateTime(2016, 03, 20, 17, 0, 0) },
-                new Session() { Id=8, Status=SessionStatus.Cancelled, TimeAndDate=new DateTime(2016, 03, 20, 19, 0, 0) },
-                new Session() { Id=9, Status=SessionStatus.Cancelled, TimeAndDate=new DateTime(2016, 03, 20, 21, 0, 0) },
+                new Session() { Id=7, TimeAndDate=new DateTime(2016, 03, 20, 17, 0, 0) },
+                new Session() { Id=8, TimeAndDate=new DateTime(2016, 03, 20, 19, 0, 0) },
+                new Session() { Id=9, TimeAndDate=new DateTime(2016, 03, 20, 21, 0, 0) },
             };
+
+            Sessions[3].Close();
+            Sessions[4].Close();
+            Sessions[5].Close();
+
+            Sessions[6].Cancel();
+            Sessions[7].Cancel();
+            Sessions[8].Cancel();
         }
 
         #endregion
@@ -74,7 +83,7 @@ namespace Cinematic.Domain.Tests
             //Arrange
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
 
             var target = new SessionManager(dataContextMock.Object);
 
@@ -105,11 +114,16 @@ namespace Cinematic.Domain.Tests
             var dataContextMock = new Mock<IDataContext>();
 
             dataContextMock.Setup(m => m.Sessions)
-                .Returns(
-                    new List<Session>()
+                .Returns(() =>
+                {
+                    var retVal = new List<Session>()
                     {
-                        new Session() { Id = 1, Status = SessionStatus.Closed, TimeAndDate = new DateTime(2016, 03, 19, 17, 0, 0) }
-                    });
+                        new Session() { Id = 1, TimeAndDate = new DateTime(2016, 03, 19, 17, 0, 0) }
+                    };
+                    retVal[0].Close();
+
+                    return retVal;
+                });
 
             var target = new SessionManager(dataContextMock.Object);
 
@@ -130,11 +144,11 @@ namespace Cinematic.Domain.Tests
             //Arrange
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
 
             dataContextMock.Setup(m => m.Add(It.IsAny<Session>())).Callback<Session>((session) =>
             {
-                _sessions.Add(session);
+                Sessions.Add(session);
             });
 
             var target = new SessionManager(dataContextMock.Object);
@@ -156,11 +170,11 @@ namespace Cinematic.Domain.Tests
             //Arrange
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
 
             dataContextMock.Setup(m => m.Add(It.IsAny<Session>())).Callback<Session>((session) =>
             {
-                _sessions.Add(session);
+                Sessions.Add(session);
             });
 
             var target = new SessionManager(dataContextMock.Object);
@@ -182,11 +196,11 @@ namespace Cinematic.Domain.Tests
             //Arrange
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
 
             dataContextMock.Setup(m => m.Add(It.IsAny<Session>())).Callback<Session>((session) =>
             {
-                _sessions.Add(session);
+                Sessions.Add(session);
             });
 
             var target = new SessionManager(dataContextMock.Object);
@@ -202,80 +216,24 @@ namespace Cinematic.Domain.Tests
             result.Status.Should().Be(SessionStatus.Open);
         }
 
-        #endregion
-
-        #region CloseSession tests
-
         [Test]
-        public void SessionManager_CloseSession_Right()
+        public void SessionManager_CreateSession_Duped()
         {
             //Arrange
-            var dataContext = Mock.Of<IDataContext>();
+            var dataContextMock = new Mock<IDataContext>();
 
-            var target = new SessionManager(dataContext);
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
 
-            var session = _sessions.Where(s => s.Status == SessionStatus.Open).FirstOrDefault();
-
-            //Act
-            var result = target.CloseSession(session);
-
-            //Assert
-            result.Id.Should().Be(session.Id);
-            result.TimeAndDate.ShouldBeEquivalentTo(session.TimeAndDate);
-            result.Status.Should().Be(SessionStatus.Closed);
-            session.Status.Should().Be(SessionStatus.Closed);
-        }
-
-        [Test]
-        public void SessionManager_CloseSession_NullSessionParam()
-        {
-            //Arrange
-            var dataContext = Mock.Of<IDataContext>();
-            var target = new SessionManager(dataContext);
+            var target = new SessionManager(dataContextMock.Object);
 
             //Act
-            Action action = () => { var result = target.CloseSession(null); };
+            Action action = () =>
+            {
+                target.CreateSession(Sessions[0].TimeAndDate);
+            };
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().WithMessage(new ArgumentNullException("session").Message);
-        }
-
-        #endregion
-
-        #region CancelSession tests
-
-        [Test]
-        public void SessionManager_CancelSession_Right()
-        {
-            //Arrange
-            var dataContext = Mock.Of<IDataContext>();
-
-            var target = new SessionManager(dataContext);
-
-            var session = _sessions.Where(s => s.Status == SessionStatus.Open).FirstOrDefault();
-
-            //Act
-            var result = target.CancelSession(session);
-
-            //Assert
-            result.Id.Should().Be(session.Id);
-            result.TimeAndDate.ShouldBeEquivalentTo(session.TimeAndDate);
-            result.Status.Should().Be(SessionStatus.Cancelled);
-            session.Status.Should().Be(SessionStatus.Cancelled);
-        }
-
-        [Test]
-        public void SessionManager_CancelSession_NullSessionParam()
-        {
-            //Arrange
-            var dataContext = Mock.Of<IDataContext>();
-            var target = new SessionManager(dataContext);
-
-            //Act
-            Action action = () => { var result = target.CancelSession(null); };
-
-            //Assert
-            action.ShouldThrow<ArgumentNullException>().WithMessage(new ArgumentNullException("session").Message);
+            action.ShouldThrow<CinematicException>().WithMessage(Messages.SessionCannotBeCreatedBecauseIsDupe);
         }
 
         #endregion
@@ -289,39 +247,49 @@ namespace Cinematic.Domain.Tests
         public void SessionManager_RemoveSession_Right(SessionStatus status)
         {
             //Arrange
-            var sessionToDelete = _sessions.Where(s => s.Status == status).FirstOrDefault();
-            var expectedSessions = _sessions.Where(s => s.Id != sessionToDelete.Id).ToArray();
+            var sessionToDelete = Sessions.Where(s => s.Status == status).FirstOrDefault();
+            var expectedSessions = Sessions.Where(s => s.Id != sessionToDelete.Id).ToArray();
 
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((sessionId) => {
+                return Sessions.Where(s => s.Id == sessionId).FirstOrDefault(); 
+            });
 
             dataContextMock.Setup(m => m.Remove(It.IsAny<Session>()))
-                .Callback<Session>((s) => { _sessions.Remove(s); });
+                .Callback<Session>((s) => { Sessions.Remove(s); });
 
             var target = new SessionManager(dataContextMock.Object);
 
             //Act
-            target.RemoveSession(sessionToDelete);
+            target.RemoveSession(sessionToDelete.Id);
 
             //Assert
-            _sessions.ShouldAllBeEquivalentTo(expectedSessions);
+            Sessions.ShouldAllBeEquivalentTo(expectedSessions);
         }
 
         [Test]
-        public void SessionManager_RemoveSession_NullSessionParam()
+        public void SessionManager_RemoveSession_NotFound()
         {
             //Arrange
-            var target = new SessionManager(Mock.Of<IDataContext>());
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((sessionId) => {
+                    return Sessions.Where(s => s.Id == sessionId).FirstOrDefault();
+                });
+
+            var target = new SessionManager(dataContextMock.Object);
 
             //Act
             Action action = () =>
             {
-                target.RemoveSession(null);
+                target.RemoveSession(-1);
             };
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().WithMessage(new ArgumentNullException("session").Message);
+            action.ShouldThrow<CinematicException>().WithMessage(Messages.SessionNotAvailableOrNotFound);
         }
 
         [Test]
@@ -331,12 +299,15 @@ namespace Cinematic.Domain.Tests
         public void SessionManager_RemoveSession_HasTickets(SessionStatus status)
         {
             //Arrange
-            var sessionToDelete = _sessions.Where(s => s.Status == status).FirstOrDefault();
-            var expectedSessions = _sessions.Where(s => s.Id != sessionToDelete.Id).ToArray();
+            var sessionToDelete = Sessions.Where(s => s.Status == status).FirstOrDefault();
+            var expectedSessions = Sessions.Where(s => s.Id != sessionToDelete.Id).ToArray();
 
             var dataContextMock = new Mock<IDataContext>();
 
-            dataContextMock.Setup(m => m.Sessions).Returns(_sessions);
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((sessionId) => {
+                    return Sessions.Where(s => s.Id == sessionId).FirstOrDefault();
+                });
 
             dataContextMock.Setup(m => m.Tickets).Returns(new Ticket[] { new Ticket() { Seat = new Seat() { Session = sessionToDelete } } });
 
@@ -345,11 +316,94 @@ namespace Cinematic.Domain.Tests
             //Act
             Action action = () =>
             {
-                target.RemoveSession(sessionToDelete);
+                target.RemoveSession(sessionToDelete.Id);
             };
 
             //Assert
             action.ShouldThrow<CinematicException>().WithMessage(string.Format(Messages.SessionCannotBeRemovedBecauseItHasSoldTickets, sessionToDelete.TimeAndDate.ToString("dd/MM/yyyy HH:mm")));
+        }
+
+        #endregion
+
+        #region UpdateSessionTimeAndDate tests
+
+        [Test]
+        [TestCase(SessionStatus.Open)]
+        [TestCase(SessionStatus.Closed)]
+        [TestCase(SessionStatus.Cancelled)]
+        public void SessionManager_UpdateSessionTimeAndDate_Right(SessionStatus status)
+        {
+            //Arrange
+            var sessionToUpdate = Sessions.Where(s => s.Status == status).FirstOrDefault();
+
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((sessionId) => {
+                    return Sessions.Where(s => s.Id == sessionId).FirstOrDefault();
+                });
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            var timeAndDate = new DateTime(2017, 2, 1, 18, 0, 0);
+
+            //Act
+            var result = target.UpdateSessionTimeAndDate(sessionToUpdate.Id, timeAndDate);
+
+            //Assert
+            result.Should().BeSameAs(sessionToUpdate);
+            result.TimeAndDate.ShouldBeEquivalentTo(timeAndDate);
+        }
+
+        [Test]
+        public void SessionManager_UpdateSessionTimeAndDate_NotFound()
+        {
+            //Arrange
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns((Session)null);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            //Act
+            Action action = () =>
+            {
+                target.UpdateSessionTimeAndDate(-1, new DateTime(2017, 2, 1, 18, 0, 0));
+            };
+
+            //Assert
+            action.ShouldThrow<CinematicException>()
+                .WithMessage(Messages.SessionNotAvailableOrNotFound);
+        }
+
+        [Test]
+        public void SessionManager_UpdateSessionTimeAndDate_Dupe()
+        {
+            //Arrange
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((sessionId) => {
+                    var retVal = Sessions.Where(s => s.Id == sessionId).FirstOrDefault();
+                    return retVal;
+                });
+
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            //Act
+            Action action = () =>
+            {
+                // La fecha ya existe en la colección de sesiones de la preparación (es la de la primera sesión abierta)
+                // Como identificador de sesión le pasamos la de la segunda abierta
+                target.UpdateSessionTimeAndDate(Sessions[1].Id, new DateTime(2016, 03, 21, 17, 0, 0));
+            };
+
+            //Assert
+            action.ShouldThrow<CinematicException>()
+                .WithMessage(Messages.SessionCannotBeUpdatedBecauseDateIsDupe);
         }
 
         #endregion
