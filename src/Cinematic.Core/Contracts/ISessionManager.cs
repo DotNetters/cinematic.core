@@ -12,10 +12,31 @@ namespace Cinematic.Contracts
     public interface ISessionManager
     {
         /// <summary>
-        /// Obtiene las <see cref="Session">sesiones</see> disponibles para la venta de <see cref="Ticket">tickets</see>
+        /// Obtiene las <see cref="Session">sesiones</see> disponibles para la venta de <see cref="Ticket">entradas</see>
         /// </summary>
-        /// <returns>Lista de las <see cref="Session">sesiones</see> disponibles para la venta de <see cref="Ticket">tickets</see></returns>
+        /// <returns>Lista de las <see cref="Session">sesiones</see> disponibles para la venta de <see cref="Ticket">entradas</see></returns>
         IEnumerable<Session> GetAvailableSessions();
+
+        /// <summary>
+        /// Obtiene una sesión por su identificador
+        /// </summary>
+        /// <param name="id">Identificador de la sesión a obtener</param>
+        /// <returns>Sesión obtenida o null en caso de no haberla encontrado</returns>
+        Session Get(int id);
+
+        /// <summary>
+        /// Obtiene todas las sesiones registradas en el sistema
+        /// </summary>
+        /// <returns>Lista de sesiones completa</returns>
+        IEnumerable<Session> GetAll();
+
+        /// <summary>
+        /// Obtiene una página del total de sesiones registradas en el sistema
+        /// </summary>
+        /// <param name="page">Cardinal de la página a obtener</param>
+        /// <param name="sessionsPerPage">Número de sesiones a obtener por página</param>
+        /// <returns></returns>
+        SessionsPageInfo GetAll(int page, int sessionsPerPage);
 
         /// <summary>
         /// Crea una nueva <see cref="Session">sesión</see> disponible en el sistema

@@ -153,6 +153,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="ChangeSessionStatus" xml:space="preserve">
+    <value>Cambiar estado</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Cerrar</value>
   </data>

@@ -126,6 +126,9 @@
   <data name="CannotReopenSessionBecauseIsOpen" xml:space="preserve">
     <value>No se puede reabrir la sesión, porque ya está ABIERTA</value>
   </data>
+  <data name="ErrorsOcurredDuringProcessExecution" xml:space="preserve">
+    <value>Se han producido errores durante la ejecución del proceso</value>
+  </data>
   <data name="RowNumberIsAboveMaxAllowed" xml:space="preserve">
     <value>El número de la fila es mayor que el máximo permitido</value>
   </data>

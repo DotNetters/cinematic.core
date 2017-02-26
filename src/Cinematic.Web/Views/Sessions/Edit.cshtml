@@ -8,7 +8,13 @@
 <hr />
 
 <form class="form-horizontal" asp-action="Edit">
-    <div asp-validation-summary="All"></div>
+    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <div asp-validation-summary="All"><h4>@Messages.ErrorsOcurredDuringProcessExecution</h4></div>
+    </div>
+    }
     <input type="hidden" asp-for="SessionId" />
     <div class="form-group">
         <label asp-for="TimeAndDate" class="control-label col-md-2"></label>
@@ -26,14 +32,23 @@
         <label asp-for="Status" class="control-label col-md-2"></label>
         <span class="control-display col-md-3">@Html.DisplayFor(model => model.Status)</span>
     </div>
-    <div>
-        <a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus1</a>
-        <a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus2</a>
-    </div>
     <hr />
     <div>
-        <input type="submit" value="@Literals.Save" class="btn btn-sm btn-primary" />
-        <a asp-action="Index" class="btn btn-sm btn-default">@Literals.Back</a>
+        <input type="submit" value="@Literals.Save" class="btn btn-sm btn-primary col-md-1" />
+
+        <div class="dropdown col-md-offset-7 col-md-2">
+            <button id="dLabel" class="btn btn-default btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Literals.ChangeSessionStatus
+                <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus1</a></li>
+                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus2</a></li>
+            </ul>
+        </div>
+        
+        <a asp-action="Index" class="btn btn-sm btn-default col-md-offset-1 col-md-1">@Literals.Back</a>
     </div>
 </form>
 

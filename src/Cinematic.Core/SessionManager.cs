@@ -14,6 +14,7 @@ namespace Cinematic
     /// </summary>
     public class SessionManager : ISessionManager
     {
+
         IDataContext DataContext { get; set; } = null;
 
         /// <summary>
@@ -32,6 +33,28 @@ namespace Cinematic
         public IEnumerable<Session> GetAvailableSessions()
         {
             return DataContext.Sessions.Where(s => s.Status == SessionStatus.Open);
+        }
+
+        /// <inheritdoc />
+        public Session Get(int id)
+        {
+            return DataContext.Find<Session>(id);
+        }
+
+        public IEnumerable<Session> GetAll()
+        {
+            return DataContext.Sessions;
+        }
+
+        /// <inheritdoc />
+        public SessionsPageInfo GetAll(int page, int sessionsPerPage)
+        {
+            var pageCount = Math.Ceiling((double)DataContext.Sessions.Count() / sessionsPerPage);
+            var sessions = DataContext.Sessions.Skip((page - 1) * 10).Take(10);
+
+            var pageInfo = new SessionsPageInfo(pageCount, sessions);
+
+            return pageInfo;
         }
 
         /// <inheritdoc />

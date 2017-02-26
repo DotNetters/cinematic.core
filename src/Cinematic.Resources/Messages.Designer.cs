@@ -87,6 +87,15 @@ namespace Cinematic.Resources {
         }
         
         /// <summary>
+        ///    Busca una cadena localizada similar a Se han producido errores durante la ejecución del proceso.
+        /// </summary>
+        public static string ErrorsOcurredDuringProcessExecution {
+            get {
+                return ResourceManager.GetString("ErrorsOcurredDuringProcessExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Busca una cadena localizada similar a El número de la fila es mayor que el máximo permitido.
         /// </summary>
         public static string RowNumberIsAboveMaxAllowed {

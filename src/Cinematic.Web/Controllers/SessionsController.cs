@@ -29,36 +29,29 @@ namespace Cinematic.Web.Controllers
         // GET: Sessions
         public IActionResult Index(int? page)
         {
-            var viewModel = new SessionsIndexViewModel();
-            viewModel.PageCount = Math.Ceiling((double)DataContext.Sessions.Count() / 10);
+            if (!page.HasValue)
+                page = 1;
 
-            if (page.HasValue)
-            {
-                viewModel.HasPrevious = page.Value > 1 ? true : false;
-                viewModel.HasNext = page.Value < viewModel.PageCount ? true : false;
-                viewModel.Sessions = DataContext.Sessions.Skip((page.Value - 1) * 10).Take(10);
-                viewModel.Page = page.Value;
-            }
-            else
-            {
-                viewModel.HasPrevious = false;
-                viewModel.HasNext = viewModel.PageCount > 1 ? true : false;
-                viewModel.Sessions = DataContext.Sessions.Skip(0).Take(10);
-                viewModel.Page = 1;
-            }
+            var viewModel = new SessionsIndexViewModel();
+            var sessionsPageInfo = SessionManager.GetAll(page.Value, 10);
+
+            viewModel.PageCount = sessionsPageInfo.PageCount;
+            viewModel.HasPrevious = page.Value > 1 ? true : false;
+            viewModel.HasNext = page.Value < viewModel.PageCount ? true : false;
+            viewModel.Sessions = sessionsPageInfo.SessionsPage;
+            viewModel.Page = page.Value;
 
             return View(viewModel);
-
         }
 
         // GET: Sessions/Details/5
         public IActionResult Details(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = DataContext.Find<Session>(id);
+            Session session = SessionManager.Get(id.Value);
             if (session == null)
             {
                 return NotFound();
@@ -82,9 +75,17 @@ namespace Cinematic.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                SessionManager.CreateSession(viewModel.TimeAndDate);
-                DataContext.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    SessionManager.CreateSession(viewModel.TimeAndDate);
+                    DataContext.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (CinematicException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return View(viewModel);
+                }
             }
 
             return View(viewModel);
@@ -93,11 +94,11 @@ namespace Cinematic.Web.Controllers
         // GET: Sessions/Edit/5
         public IActionResult Edit(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = DataContext.Find<Session>(id);
+            Session session = SessionManager.Get(id.Value);
             if (session == null)
             {
                 return NotFound();
@@ -135,11 +136,11 @@ namespace Cinematic.Web.Controllers
         // GET: Sessions/Delete/5
         public IActionResult Delete(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 return new StatusCodeResult((int)HttpStatusCode.BadRequest);
             }
-            Session session = DataContext.Find<Session>(id);
+            Session session = SessionManager.Get(id.Value);
             if (session == null)
             {
                 return NotFound();
@@ -150,16 +151,20 @@ namespace Cinematic.Web.Controllers
         // POST: Sessions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int? id)
         {
-            Session session = DataContext.Find<Session>(id);            
+            if (!id.HasValue)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.BadRequest);
+            }
+            Session session = SessionManager.Get(id.Value);
             if (session == null)
             {
                 return NotFound();
             }
             try
             {
-                SessionManager.RemoveSession(id);
+                SessionManager.RemoveSession(id.Value);
                 DataContext.SaveChanges();
                 return RedirectToAction("Index");
             }
