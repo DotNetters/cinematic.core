@@ -6,6 +6,7 @@ using System.Linq;
 using Moq;
 using Cinematic.Contracts;
 using Cinematic.Resources;
+using Cinematic.Infrastructure;
 
 namespace Cinematic.Domain.Tests
 {
@@ -43,6 +44,29 @@ namespace Cinematic.Domain.Tests
             Sessions[6].Cancel();
             Sessions[7].Cancel();
             Sessions[8].Cancel();
+        }
+
+        public void AddNewSessions(int howMany, int pageSize, DateTime startDate, SessionStatus status = SessionStatus.Open)
+        {
+            var count = Sessions.Count;
+            for (int i = count + 1; i <= count + howMany; i++)
+            {
+                var sss = new Session() { Id = i, TimeAndDate = startDate.AddDays(i - pageSize) };
+
+                switch (status)
+                {
+                    case SessionStatus.Closed:
+                        sss.Close();
+                        break;
+                    case SessionStatus.Cancelled:
+                        sss.Cancel();
+                        break;
+                    default:
+                        break;
+                }
+
+                Sessions.Add(sss);
+            }
         }
 
         #endregion
@@ -404,6 +428,181 @@ namespace Cinematic.Domain.Tests
             //Assert
             action.ShouldThrow<CinematicException>()
                 .WithMessage(Messages.SessionCannotBeUpdatedBecauseDateIsDupe);
+        }
+
+        #endregion
+
+        #region Get tests
+
+        [Test]
+        [TestCase(SessionStatus.Open)]
+        [TestCase(SessionStatus.Closed)]
+        [TestCase(SessionStatus.Cancelled)]
+        public void SessionManager_Get_Right(SessionStatus status)
+        {
+            //Arrange
+            var expectedSession = Sessions.Where(s => s.Status == status).First();
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((id) =>
+                {
+                    return Sessions.Where(s => s.Id == id).FirstOrDefault();
+                });
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            //Act
+            var result = target.Get(expectedSession.Id);
+
+            //Assert
+            result.Should().BeSameAs(expectedSession);
+        }
+
+        [Test]
+        public void SessionManager_Get_NotFound()
+        {
+            //Arrange
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Find<Session>(It.IsAny<int>()))
+                .Returns<int>((id) =>
+                {
+                    return null;
+                });
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            //Act
+            var result = target.Get(-1);
+
+            //Assert
+            result.Should().BeNull();
+        }
+
+        [Test]
+        public void SessionManager_GetAll_Right()
+        {
+            //Arrange
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            //Act
+            var result = target.GetAll();
+
+            //Assert
+            result.ShouldAllBeEquivalentTo(Sessions);
+        }
+
+        [Test]
+        public void SessionManager_GetAll_Paged_FirstPage()
+        {
+            //Arrange
+            AddSessionsForPageTests();
+
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            var expectedSessions = new Session[]
+            {
+                Sessions[0],
+                Sessions[1],
+                Sessions[2],
+                Sessions[3],
+                Sessions[4],
+                Sessions[5],
+                Sessions[6],
+                Sessions[7],
+                Sessions[8],
+                Sessions[9]
+            };
+
+            //Act
+            var result = target.GetAll(1, 10);
+
+            //Assert
+            result.PageCount.Should().Be(46);
+            result.SessionsPage.ShouldAllBeEquivalentTo(expectedSessions);
+        }
+
+        [Test]
+        public void SessionManager_GetAll_Paged_LastPage()
+        {
+            //Arrange
+            AddSessionsForPageTests();
+
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            var expectedSessions = new Session[]
+            {
+                Sessions[450],
+                Sessions[451],
+                Sessions[452],
+                Sessions[453],
+                Sessions[454],
+                Sessions[455],
+                Sessions[456],
+                Sessions[457],
+                Sessions[458]
+            };
+
+            //Act
+            var result = target.GetAll(46, 10);
+
+            //Assert
+            result.PageCount.Should().Be(46);
+            result.SessionsPage.ShouldAllBeEquivalentTo(expectedSessions);
+        }
+
+        [Test]
+        public void SessionManager_GetAll_Paged_Page()
+        {
+            //Arrange
+            AddSessionsForPageTests();
+
+            var dataContextMock = new Mock<IDataContext>();
+
+            dataContextMock.Setup(m => m.Sessions).Returns(Sessions);
+
+            var target = new SessionManager(dataContextMock.Object);
+
+            var expectedSessions = new Session[]
+            {
+                Sessions[150],
+                Sessions[151],
+                Sessions[152],
+                Sessions[153],
+                Sessions[154],
+                Sessions[155],
+                Sessions[156],
+                Sessions[157],
+                Sessions[158],
+                Sessions[159]
+            };
+
+            //Act
+            var result = target.GetAll(16, 10);
+
+            //Assert
+            result.PageCount.Should().Be(46);
+            result.SessionsPage.ShouldAllBeEquivalentTo(expectedSessions);
+        }
+
+        private void AddSessionsForPageTests()
+        {
+            AddNewSessions(150, 10, SystemTime.Now(), SessionStatus.Closed);
+            AddNewSessions(150, 10, SystemTime.Now().AddDays(150), SessionStatus.Cancelled);
+            AddNewSessions(150, 10, SystemTime.Now().AddDays(150));
         }
 
         #endregion

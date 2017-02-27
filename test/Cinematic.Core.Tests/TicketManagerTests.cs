@@ -9,6 +9,7 @@ using Cinematic.Infrastructure;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
+    [TestOf(typeof(TicketManager))]
     [Category("Cinematic.TicketManager")]
     public class TicketManagerTests
     {

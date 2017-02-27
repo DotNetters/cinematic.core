@@ -11,6 +11,7 @@ using Cinematic.Resources;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
+    [TestOf(typeof(SeatManager))]
     [Category("Cinematic.SeatManager")]
     public class SeatManagerTests
     {
