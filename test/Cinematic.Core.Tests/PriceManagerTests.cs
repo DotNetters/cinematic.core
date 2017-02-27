@@ -5,6 +5,7 @@ using FluentAssertions;
 namespace Cinematic.Domain.Tests
 {
     [TestFixture]
+    [TestOf(typeof(PriceManager))]
     [Category("Cinematic.PriceManager")]
     public class PriceManagerTests
     {

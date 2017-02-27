@@ -35,6 +35,9 @@ namespace Cinematic
         [Display(ResourceType=typeof(Literals), Name="Entity_Session_TimeAndDate_DisplayName")]
         public DateTime TimeAndDate { get; set; }
 
+        /// <summary>
+        /// Inicializa una instancia de <see cref="Session"/>
+        /// </summary>
         public Session()
         {
             Status = SessionStatus.Open;
@@ -68,6 +71,9 @@ namespace Cinematic
             Status = SessionStatus.Cancelled;
         }
 
+        /// <summary>
+        /// Reabre una sesión cerrada o cancelada
+        /// </summary>
         public void Reopen()
         {
             if (Status == SessionStatus.Open)

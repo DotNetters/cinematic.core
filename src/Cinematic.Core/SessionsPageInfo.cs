@@ -10,6 +10,11 @@ namespace Cinematic
     /// </summary>
     public class SessionsPageInfo
     {
+        /// <summary>
+        /// Inicializa una instancia de <see cref="SessionsPageInfo"/>
+        /// </summary>
+        /// <param name="pageCount">Número de páginas totales registradas</param>
+        /// <param name="sessionsPage">Página de sesiones</param>
         public SessionsPageInfo(double pageCount, IEnumerable<Session> sessionsPage)
         {
             PageCount = pageCount;

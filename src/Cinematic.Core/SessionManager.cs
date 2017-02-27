@@ -41,6 +41,7 @@ namespace Cinematic
             return DataContext.Find<Session>(id);
         }
 
+        /// <inheritdoc />
         public IEnumerable<Session> GetAll()
         {
             return DataContext.Sessions;
