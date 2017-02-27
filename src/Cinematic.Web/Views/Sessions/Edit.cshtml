@@ -34,21 +34,25 @@
     </div>
     <hr />
     <div>
-        <input type="submit" value="@Literals.Save" class="btn btn-sm btn-primary col-md-1" />
+        <input type="submit" value="@Literals.Save" class="btn btn-sm btn-primary" />
 
-        <div class="dropdown col-md-offset-7 col-md-2">
+        <a asp-action="Index" class="btn btn-sm btn-default">@Literals.Back</a>
+
+        <div class="dropdown pull-right">
             <button id="dLabel" class="btn btn-default btn-info" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @Literals.ChangeSessionStatus
                 <span class="caret"></span>
             </button>
 
             <ul class="dropdown-menu" aria-labelledby="dLabel">
-                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus1</a></li>
-                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId">@Model.ToNextStatus2</a></li>
+                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId" asp-route-targetstatus="@Model.ToNextStatus1.Value">@Model.ToNextStatus1Literal</a></li>
+                @if (Model.ToNextStatus2.HasValue)
+                {
+                <li><a asp-action="NextStatus" asp-route-id="@Model.SessionId" asp-route-targetstatus="@Model.ToNextStatus2.Value">@Model.ToNextStatus2Literal</a></li>
+                }
             </ul>
         </div>
         
-        <a asp-action="Index" class="btn btn-sm btn-default col-md-offset-1 col-md-1">@Literals.Back</a>
     </div>
 </form>
 

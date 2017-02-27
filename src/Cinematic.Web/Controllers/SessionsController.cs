@@ -133,6 +133,46 @@ namespace Cinematic.Web.Controllers
             return View(viewModel);
         }
 
+        public IActionResult NextStatus(int? id, string targetStatus, SessionsEditViewModel viewModel)
+        {
+            if (!id.HasValue)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.BadRequest);
+            }
+            Session session = SessionManager.Get(id.Value);
+            if (session == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    switch (targetStatus)
+                    {
+                        case "Open":
+                            session.Reopen();
+                            break;
+                        case "Closed":
+                            session.Close();
+                            break;
+                        case "Cancelled":
+                            session.Cancel();
+                            break;
+                        default:
+                            break;
+                    }
+                    DataContext.SaveChanges();
+                    return RedirectToAction("Edit", new { id = id });
+                }
+                catch (CinematicException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex, null);
+                    return View("Edit", viewModel);
+                }
+            }
+        }
+
         // GET: Sessions/Delete/5
         public IActionResult Delete(int? id)
         {
