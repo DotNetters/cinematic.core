@@ -9,8 +9,8 @@
     "NETStandard.Library": "1.6.1",
     "dotnet-test-nunit": "3.4.0-beta-3",
     "Microsoft.CodeCoverage": "1.0.2",
-    "Moq": "4.7.0",
-    "NUnit": "3.6.1"
+    "NUnit": "3.6.1",
+    "Moq": "4.7.0"
   },
   "testRunner": "nunit",
 
