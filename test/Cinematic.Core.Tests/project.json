@@ -5,12 +5,12 @@
 
   "dependencies": {
     "Cinematic.Core": "0.0.0-1",
-    "FluentAssertions": "4.19.0",
     "NETStandard.Library": "1.6.1",
     "dotnet-test-nunit": "3.4.0-beta-3",
     "Microsoft.CodeCoverage": "1.0.2",
     "NUnit": "3.6.1",
-    "Moq": "4.7.0"
+    "FluentAssertions": "4.19.2",
+    "Moq": "4.7.8"
   },
   "testRunner": "nunit",
 
@@ -22,10 +22,9 @@
       ],
       "dependencies": {
         "Microsoft.NETCore.App": {
-          "version": "1.1.0",
+          "version": "1.1.1",
           "type": "platform"
         }
-
       }
     }
   }
